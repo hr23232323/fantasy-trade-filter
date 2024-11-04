@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/app # Mount backend code for hot reloading
+      - /app/__pycache__ # Prevents cache files from causing issues
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./frontend # Path to frontend directory
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app # Mount frontend code for hot reloading
+      - /app/node_modules # Prevents node_modules from being overwritten
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+# Define the custom network
+networks:
+  app_network:
+    driver: bridge
