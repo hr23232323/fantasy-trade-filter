@@ -52,6 +52,13 @@ reset:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) -p $(PROJECT_NAME) down --volumes --remove-orphans
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) -p $(PROJECT_NAME) up --build -d
 
+# Deploy command that calls both frontend and backend deploy commands
+deploy:
+	@echo "Deploying Frontend..."
+	$(MAKE) -C frontend deploy
+	@echo "Deploying Backend..."
+	$(MAKE) -C backend deploy
+
 # Help menu
 help:
 	@echo "Makefile commands for managing Docker Compose project:"
@@ -64,3 +71,4 @@ help:
 	@echo "  restart - Restart all services"
 	@echo "  clean   - Clean up unused Docker resources"
 	@echo "  reset   - Fully reset containers, volumes, and networks, and rebuild everything"
+	@echo "  deploy  - Deploy both the FE and the BE apps to GCS cloud run"

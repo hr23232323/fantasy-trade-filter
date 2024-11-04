@@ -23,4 +23,4 @@ ENV PORT 3000
 # NOTE - If this was actually deployed to production, I'd
 # Want to use nginx/serve etc. to build and serve the 
 # production static files. Not needed for a POC tho.
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]

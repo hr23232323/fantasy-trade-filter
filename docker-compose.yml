@@ -2,7 +2,8 @@ version: "3.9"
 services:
   backend:
     build:
-      context: ./backend
+      context: ./backend/.
+      dockerfile: Dockerfile
     volumes:
       - ./backend:/app # Mount backend code for hot reloading
       - /app/__pycache__ # Prevents cache files from causing issues
@@ -13,7 +14,8 @@ services:
 
   frontend:
     build:
-      context: ./frontend # Path to frontend directory
+      context: ./frontend/.
+      dockerfile: dev.Dockerfile
     ports:
       - "3000:3000"
     environment:

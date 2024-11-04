@@ -1,0 +1,24 @@
+# Variables
+GCP_PROJECT=GCP_PROJECT=fantasy-trade-targets
+APP_NAME=frontend
+
+# Make commands to deploy app to GCP Cloud Run
+
+# Build for Cloud Run
+.PHONY: build-cloud
+build-cloud:
+	docker buildx build --platform linux/amd64 -t gcr.io/$(GCP_PROJECT)/$(APP_NAME) -f prod.Dockerfile .
+
+.PHONY: push
+push:
+	docker push gcr.io/$(GCP_PROJECT)/$(APP_NAME)
+
+
+.PHONY: deploy
+deploy:
+	gcloud run deploy $(APP_NAME) \
+	--image gcr.io/$(GCP_PROJECT)/$(APP_NAME) \
+	--platform managed \
+	--region us-central1 \
+	--allow-unauthenticated \
+	--port 80
