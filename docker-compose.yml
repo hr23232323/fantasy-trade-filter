@@ -6,9 +6,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./backend:/app # Mount backend code for hot reloading
-      - /app/__pycache__ # Prevents cache files from causing issues
     ports:
-      - "8000:8000"
+      - "8080:8080"
     networks:
       - app_network
 
@@ -19,10 +18,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
     volumes:
       - ./frontend:/app # Mount frontend code for hot reloading
-      - /app/node_modules # Prevents node_modules from being overwritten
     depends_on:
       - backend
     networks:

@@ -16,6 +16,11 @@ build:
 	@echo "Building services..."
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) -p $(PROJECT_NAME) build
 
+# Build the services (no cache)
+build-no-cache:
+	@echo "Building services..."
+	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) -p $(PROJECT_NAME) build --no-cache
+
 # Start the services in detached mode
 up:
 	@echo "Starting services in detached mode..."
@@ -54,15 +59,16 @@ reset:
 
 # Deploy command that calls both frontend and backend deploy commands
 deploy:
-	@echo "Deploying Frontend..."
-	$(MAKE) -C frontend deploy
-	@echo "Deploying Backend..."
-	$(MAKE) -C backend deploy
+	@echo "Deploying Frontend and Backend in parallel..."
+	$(MAKE) -C frontend deploy &
+	$(MAKE) -C backend deploy &
+	wait
 
 # Help menu
 help:
 	@echo "Makefile commands for managing Docker Compose project:"
 	@echo "  build   - Build the services"
+	@echo "  build-no-cache - Build the services without cache"
 	@echo "  up      - Start services in detached mode"
 	@echo "  start   - Start services in foreground mode"
 	@echo "  stop    - Stop the services (containers kept)"

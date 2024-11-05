@@ -1,5 +1,5 @@
 # Variables
-GCP_PROJECT=GCP_PROJECT=fantasy-trade-targets
+GCP_PROJECT=fantasy-trade-targets
 APP_NAME=frontend
 
 # Make commands to deploy app to GCP Cloud Run
@@ -16,7 +16,7 @@ push:
 
 .PHONY: deploy
 deploy:
-	gcloud run deploy $(APP_NAME) \
+	$(MAKE) build-cloud && $(MAKE) push && gcloud run deploy $(APP_NAME) \
 	--image gcr.io/$(GCP_PROJECT)/$(APP_NAME) \
 	--platform managed \
 	--region us-central1 \
