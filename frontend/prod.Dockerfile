@@ -1,37 +1,40 @@
-# Stage 1: Build the React application
+# Stage 1: Build the Next.js application
 FROM node:18-alpine AS build
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock to the working directory
+# Copy only essential files for installing dependencies
 COPY package.json yarn.lock ./
 
-# Install dependencies
+# Install all dependencies (including devDependencies) for building the app
 RUN yarn install --frozen-lockfile
 
-# Copy the rest of the application code to the working directory
+# Copy the rest of the application code
 COPY . .
 
-# Build the React application for production
+# Build the Next.js application
 RUN yarn build
 
+# Stage 2: Production Image with a slimmer base
+FROM node:18-slim
 
+# Set the working directory
+WORKDIR /app
 
-# ===============================================
-# Stage 2
-# Serve the production build with nginx
-# ===============================================
-FROM nginx:alpine
+# Copy only essential files and dependencies from build stage
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production --prefer-offline
 
-# Copy the build output from the first stage to the nginx html directory
-COPY --from=build /app/build /usr/share/nginx/html
+# Copy only the built application from the previous stage
+COPY --from=build /app/.next ./.next
+# COPY --from=build /app/public ./public - Add when we have a public folder
+COPY --from=build /app/node_modules ./node_modules
 
-# Expose the default nginx port 80 to the outside world
-EXPOSE 80
+# Expose the default Next.js port
+EXPOSE 3000
 
-# Set the PORT environment variable
-ENV PORT 80
+ENV PORT 3000
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start Next.js in production mode
+CMD ["yarn", "start"]

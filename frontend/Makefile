@@ -21,4 +21,4 @@ deploy:
 	--platform managed \
 	--region us-central1 \
 	--allow-unauthenticated \
-	--port 80
+	--port 3000
