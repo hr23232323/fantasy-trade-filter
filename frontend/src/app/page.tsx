@@ -10,7 +10,7 @@ import { Player } from "./types/Player";
 export default function Home() {
   const [position, setPosition] = useState<string[]>([]); // Now an array of strings
   const [minAge, setMinAge] = useState<number>(18);
-  const [maxAge, setMaxAge] = useState<number>(40);
+  const [maxAge, setMaxAge] = useState<number>(42);
   const [sortField, setSortField] = useState<string>("age");
   const [sortOrder, setSortOrder] = useState<string>("desc");
   const [players, setPlayers] = useState<Player[]>([]);

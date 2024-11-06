@@ -32,30 +32,32 @@ const FilterForm: FC<FilterFormProps> = ({
       <h2 className="text-lg font-bold mb-2 text-gray-800">Filter Players</h2>
       <div className="flex flex-col space-y-4">
         {/* Position Checkboxes */}
-        <div className="flex flex-col space-y-2">
-          <label className="text-gray-700 font-semibold">Position:</label>
-          {positionOptions.map((option) => (
-            <label key={option} className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                value={option}
-                checked={position.includes(option)}
-                onChange={() => handlePositionChange(option)}
-                className="text-blue-500"
-              />
-              <span className="text-gray-800">{option}</span>
-            </label>
-          ))}
+        <div className="flex flex-col">
+          <label className="text-gray-700 font-semibold">Position</label>
+          <div className="flex flex-row">
+            {positionOptions.map((option) => (
+              <label key={option} className="flex items-center mr-6">
+                <input
+                  type="checkbox"
+                  value={option}
+                  checked={position.includes(option)}
+                  onChange={() => handlePositionChange(option)}
+                  className="text-blue-500"
+                />
+                <span className="text-gray-800 ml-1">{option}</span>
+              </label>
+            ))}
+          </div>
         </div>
         {/* Age Range Slider */}
         <div className="mb-4">
-          <label className="text-gray-700 font-semibold">Age Range:</label>
+          <label className="text-gray-700 font-semibold">Age Range</label>
           <ReactSlider
-            className="w-full h-2 bg-gray-300 rounded"
-            thumbClassName="w-4 h-4 bg-blue-500 rounded-full cursor-pointer"
+            className="w-full h-6 bg-gray-300 rounded"
+            thumbClassName="w-6 h-6 bg-blue-500 cursor-pointer text-center"
             trackClassName="bg-blue-300"
             min={18} // Minimum age for the slider
-            max={40} // Maximum age for the slider
+            max={42} // Maximum age for the slider
             value={[minAge, maxAge]}
             onChange={([newMinAge, newMaxAge]: [number, number]) =>
               onAgeRangeChange(newMinAge, newMaxAge)
@@ -65,10 +67,13 @@ const FilterForm: FC<FilterFormProps> = ({
             renderThumb={(props, state) => (
               <div {...props}>{state.valueNow}</div>
             )}
+            marks={[24, 30, 36]}
+            markClassName="w-2 h-6 bg-blue-100 text-center"
+            renderMark={(props) => <span {...props} />}
           />
           <div className="flex justify-between text-gray-700 mt-2">
-            <span>Min Age: {minAge}</span>
-            <span>Max Age: {maxAge}</span>
+            <span className="text-gray-500 text-xs">Min Age: {minAge}</span>
+            <span className="text-gray-500 text-xs">Max Age: {maxAge}</span>
           </div>
         </div>
       </div>
