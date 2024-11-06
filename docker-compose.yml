@@ -18,7 +18,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
+      - NEXT_PUBLIC_BACKEND_URL=http://host.docker.internal:8080
     volumes:
       - ./frontend:/app # Mount frontend code for hot reloading
     depends_on:

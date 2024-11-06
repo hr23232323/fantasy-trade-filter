@@ -1,25 +1,22 @@
+from dotenv import load_dotenv
+
+# Load environment variables from .env file early
+# so every child module also has access
+load_dotenv()
+
+# Rest of the imports (including submodules)
+from config import add_cors_middleware  # Custom CORs config
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 import pandas as pd
 import requests
 
+# Setup App and configs (including CORs) and base API path
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",  # Frontend in development
-    "http://127.0.0.1:3000",  # Alternative for localhost
-]
-
-
-# Apply CORS settings
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,  # Allows specific origins
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allows all headers
-)
+# Add CORS middleware from the config module
+add_cors_middleware(app)
 
 # Define the URL of the CSV file
 CSV_URL = "https://raw.githubusercontent.com/dynastyprocess/data/refs/heads/master/files/values.csv"
@@ -73,8 +70,3 @@ async def refresh_data():
         return {"status": "Data refreshed successfully"}
     except requests.RequestException as e:
         return {"status": "Error refreshing data", "details": str(e)}
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)

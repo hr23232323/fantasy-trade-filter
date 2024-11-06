@@ -15,18 +15,16 @@ export default function Home() {
   const [sortOrder, setSortOrder] = useState<string>("desc");
   const [players, setPlayers] = useState<Player[]>([]);
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-
   const handleApply = async () => {
     try {
-      console.log("Getting data...");
-      const response = await axios.get<Player[]>(`${backendUrl}/filter`, {
+      console.log("Fetching players...");
+      const response = await axios.get<Player[]>("/api/filter-players", {
         params: {
-          position: position.length > 0 ? position.join(",") : undefined, // Pass as comma-separated string
+          position: position.length > 0 ? position.join(",") : undefined,
           min_age: minAge,
           max_age: maxAge,
-          sort_field: sortField, // Include sorting field
-          sort_order: sortOrder, // Include sorting order
+          sort_field: sortField,
+          sort_order: sortOrder,
         },
       });
       setPlayers(response.data);
