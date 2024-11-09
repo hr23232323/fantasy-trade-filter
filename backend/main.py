@@ -1,3 +1,4 @@
+import fetch
 from dotenv import load_dotenv
 
 # Load environment variables from .env file early
@@ -70,3 +71,6 @@ async def refresh_data():
         return {"status": "Data refreshed successfully"}
     except requests.RequestException as e:
         return {"status": "Error refreshing data", "details": str(e)}
+    
+
+app.include_router(fetch.router, prefix="/fetch", tags=["fetch"])
