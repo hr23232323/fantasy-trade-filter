@@ -16,7 +16,13 @@ const FilterForm: FC<FilterFormProps> = ({
   maxAge,
   onAgeRangeChange,
 }) => {
-  const positionOptions = ["WR", "RB", "QB", "TE", "PICK"];
+  const positionOptions: Record<string, string> = {
+    WR: "WR",
+    RB: "RB",
+    QB: "QB",
+    TE: "TE",
+    PICK: "RDP",
+  };
 
   // Handle change in position checkbox
   const handlePositionChange = (option: string) => {
@@ -35,16 +41,16 @@ const FilterForm: FC<FilterFormProps> = ({
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold">Position</label>
           <div className="flex flex-row">
-            {positionOptions.map((option) => (
-              <label key={option} className="flex items-center mr-6">
+            {Object.entries(positionOptions).map(([label, value]) => (
+              <label key={value} className="flex items-center mr-6">
                 <input
                   type="checkbox"
-                  value={option}
-                  checked={position.includes(option)}
-                  onChange={() => handlePositionChange(option)}
+                  value={value}
+                  checked={position.includes(value)}
+                  onChange={() => handlePositionChange(value)}
                   className="text-blue-500"
                 />
-                <span className="text-gray-800 ml-1">{option}</span>
+                <span className="text-gray-800 ml-1">{label}</span>
               </label>
             ))}
           </div>

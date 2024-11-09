@@ -11,9 +11,9 @@ from custom_types import parse_player_data
 
 router = APIRouter()
 
-# Replace these with your GCP bucket details
+# GCP bucket + file details
 BUCKET_NAME = "ftt-players-data"
-FILE_PREFIX = "player_data"  # Prefix for files in bucket
+FILE_NAME = "player_data.json"
 
 
 def fetch_players_array(url: str):
@@ -107,15 +107,11 @@ def fetch_players_data():
         # Parse each player using Pydantic to only keep specific fields
         parsed_players_data = process_player_data(players_data)
         
-        # Generate a unique filename with timestamp
-        timestamp = datetime.datetime.utcnow().strftime("%Y%m%d-%H%M%S")
-        file_name = f"{FILE_PREFIX}_{timestamp}.json"
-        
         # Upload the data to GCS
         # upload_to_local_tmp(file_name, parsed_players_data)
         # return {"message": "Data successfully created - TMP"}
         
-        gcs_url = upload_to_gcs(BUCKET_NAME, file_name, parsed_players_data)
+        gcs_url = upload_to_gcs(BUCKET_NAME, FILE_NAME, parsed_players_data)
         return {"message": "Data successfully updated", "file_url": gcs_url}
     
     except Exception as e:

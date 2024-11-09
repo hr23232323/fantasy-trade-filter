@@ -25,8 +25,8 @@ const SortOptions: FC<SortOptionsProps> = ({
             className="p-2 border rounded text-gray-900 bg-white"
           >
             <option value="age">Age</option>
-            <option value="value_1qb">Value (1QB)</option>
-            <option value="value_2qb">Value (2QB)</option>
+            <option value="oneQBValues.value">Value (1QB)</option>
+            <option value="superflexValues.value">Value (2QB)</option>
           </select>
         </label>
         <label className="flex flex-col text-gray-700">

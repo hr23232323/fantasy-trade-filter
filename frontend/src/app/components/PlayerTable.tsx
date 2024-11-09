@@ -21,18 +21,13 @@ const PlayerTable: FC<PlayerTableProps> = ({ players }) => {
         </thead>
         <tbody className="text-gray-800">
           {players.map((player, index) => (
-            <tr
-              key={
-                player.fp_id !== null ? player.fp_id : `fallback-key-${index}`
-              }
-              className="border-t"
-            >
-              <td className="p-3">{player.player}</td>
-              <td className="p-3">{player.pos}</td>
+            <tr key={`fallback-key-${index}`} className="border-t">
+              <td className="p-3">{player.playerName}</td>
+              <td className="p-3">{player.position}</td>
               <td className="p-3">{player.age}</td>
               <td className="p-3">{player.team}</td>
-              <td className="p-3">{player.value_1qb}</td>
-              <td className="p-3">{player.value_2qb}</td>
+              <td className="p-3">{player.oneQBValues.value}</td>
+              <td className="p-3">{player.superflexValues.value}</td>
             </tr>
           ))}
         </tbody>
