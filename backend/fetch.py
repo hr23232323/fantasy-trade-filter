@@ -100,6 +100,9 @@ def fetch_players_data():
     """FastAPI endpoint to fetch player data and upload to GCS."""
     url = "https://keeptradecut.com/dynasty-rankings"
     
+    # Read the allowed frontend URL from environment variables
+    gcs_enabled = os.getenv("ENABLE_GCS", "0") == "1"
+    
     try:
         # Fetch the latest player data
         players_data = fetch_players_array(url)
@@ -107,12 +110,17 @@ def fetch_players_data():
         # Parse each player using Pydantic to only keep specific fields
         parsed_players_data = process_player_data(players_data)
         
-        # Upload the data to GCS
-        # upload_to_local_tmp(file_name, parsed_players_data)
-        # return {"message": "Data successfully created - TMP"}
-        
-        gcs_url = upload_to_gcs(BUCKET_NAME, FILE_NAME, parsed_players_data)
-        return {"message": "Data successfully updated", "file_url": gcs_url}
+        if gcs_enabled:
+            print("Uploading file to GCS...")
+            gcs_url = upload_to_gcs(BUCKET_NAME, FILE_NAME, parsed_players_data)
+            print("Uploaded!")
+            return {"message": "Data successfully updated", "file_url": gcs_url}
+        else:
+            print("Uploading file to Local TMP dir...")
+            file_path = upload_to_local_tmp(FILE_NAME, parsed_players_data)
+            print("Uploaded!")
+            return {"message": "Data successfully created - TMP", "file_path": file_path}
     
     except Exception as e:
+        print("Error fetching or uploading data")
         raise HTTPException(status_code=500, detail=str(e))
