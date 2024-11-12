@@ -85,33 +85,52 @@ const FilterForm: FC<FilterFormProps> = ({
             </button>
           </div>
         </div>
-
-        {/* Age Range Slider */}
-        <div className="mb-4">
-          <label className="text-gray-700 font-semibold">Age Range</label>
+        <div className="mb-6 p-4 bg-white shadow-md rounded-md">
+          <label className="text-gray-900 font-semibold text-lg mb-2 block">
+            Age Range
+          </label>
           <ReactSlider
-            className="w-full h-6 bg-gray-300 rounded"
-            thumbClassName="w-6 h-6 bg-blue-500 cursor-pointer text-center"
-            trackClassName="bg-blue-300"
-            min={18} // Minimum age for the slider
-            max={42} // Maximum age for the slider
+            className="relative w-full h-10 cursor-pointer"
+            thumbClassName="w-6 h-6 bg-blue-500 shadow-md rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            trackClassName="h-2 rounded-full"
             value={[minAge, maxAge]}
             onChange={([newMinAge, newMaxAge]: [number, number]) =>
               onAgeRangeChange(newMinAge, newMaxAge)
             }
-            minDistance={1} // Minimum distance between handles
+            min={18}
+            max={42}
+            minDistance={1}
             pearling
             renderThumb={(props, state) => (
-              <div {...props}>{state.valueNow}</div>
+              <div {...props} className="relative flex justify-center">
+                <div className="absolute top-full mt-4 px-2 py-1 bg-blue-500 text-white text-xs rounded shadow-md">
+                  {state.valueNow}
+                </div>
+              </div>
             )}
-            marks={[24, 30, 36]}
-            markClassName="w-2 h-6 bg-blue-100 text-center"
-            renderMark={(props) => <span {...props} />}
+            marks={[18, 24, 30, 36, 42]}
+            markClassName="w-1 h-4 bg-gray-400 rounded-full"
+            renderMark={(props) => (
+              <div {...props} className="relative mt-2">
+                <span className="absolute top-4 text-xs text-gray-500">
+                  {props.value}
+                </span>
+              </div>
+            )}
+            renderTrack={(props, { index }) => {
+              const isActive = index === 1;
+              return (
+                <div
+                  {...props}
+                  className={`h-2 rounded-full ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-500 to-blue-300"
+                      : "bg-gray-300"
+                  }`}
+                />
+              );
+            }}
           />
-          <div className="flex justify-between text-gray-700 mt-2">
-            <span className="text-gray-500 text-xs">Min Age: {minAge}</span>
-            <span className="text-gray-500 text-xs">Max Age: {maxAge}</span>
-          </div>
         </div>
       </div>
     </div>
