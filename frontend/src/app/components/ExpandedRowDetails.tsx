@@ -6,6 +6,7 @@ import {
   FaRulerVertical,
   FaHeartbeat,
 } from "react-icons/fa";
+import RankingBars from "./RankingBars";
 
 interface ExpandedRowDetailsProps {
   player: Player;
@@ -45,63 +46,7 @@ export const ExpandedRowDetails: FC<ExpandedRowDetailsProps> = ({
               <strong>Experience:</strong> {player.seasonsExperience} seasons
             </div>
           </div>
-          {/* Rankings Section */}
-          <div>
-            <div className="text-gray-600">
-              <strong>Overall Ranks:</strong>
-              <div className="mt-2 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">
-                    1QB: <strong>#{player.oneQBValues.rank}</strong>
-                  </span>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      player.oneQBValues.overallTier === 1
-                        ? "bg-green-100 text-green-700"
-                        : player.oneQBValues.overallTier === 2
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    Tier {player.oneQBValues.overallTier}
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div
-                    className="bg-blue-500 h-2.5 rounded-full"
-                    style={{
-                      width: `${100 - player.oneQBValues.rank / 2}%`,
-                    }}
-                  ></div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">
-                    2QB/SF: <strong>#{player.superflexValues.rank}</strong>
-                  </span>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs ${
-                      player.superflexValues.overallTier === 1
-                        ? "bg-green-100 text-green-700"
-                        : player.superflexValues.overallTier === 2
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    Tier {player.superflexValues.overallTier}
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div
-                    className="bg-purple-500 h-2.5 rounded-full"
-                    style={{
-                      width: `${100 - player.superflexValues.rank / 2}%`,
-                    }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <RankingBars player={player} />
 
           {/* Injury Section (If Applicable) */}
           {player.injury.injuryName && (

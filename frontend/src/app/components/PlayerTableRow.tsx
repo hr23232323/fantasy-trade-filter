@@ -41,12 +41,24 @@ const getPositionExpandColor = (position: string) => {
   }
 };
 
-const getValueBadgeStyle = (tier: number) => {
-  if (tier <= 3)
-    return "bg-green-100 text-green-700 font-semibold rounded-full px-2 py-1";
-  if (tier > 3)
-    return "bg-yellow-100 text-yellow-700 font-semibold rounded-full px-2 py-1";
-  return "bg-red-100 text-red-700 font-semibold rounded-full px-2 py-1";
+type BadgeStyle = {
+  min: number;
+  max: number;
+  style: string;
+};
+
+const badgeStyles: BadgeStyle[] = [
+  { min: 7500, max: Infinity, style: "bg-violet-100 text-violet-700" }, // Elite
+  { min: 6000, max: 7499, style: "bg-lime-100 text-lime-900" }, // Amazing
+  { min: 5000, max: 5999, style: "bg-yellow-100 text-lime-600" }, // Amazing
+  { min: 3500, max: 4999, style: "bg-yellow-200 text-yellow-700" }, // Strong
+  { min: 3001, max: 3499, style: "bg-orange-100 text-orange-700" }, // Solid
+  { min: -Infinity, max: 3000, style: "bg-red-100 text-red-700" }, // Bad
+];
+
+const getValueBadgeStyle = (value: number): string => {
+  const badge = badgeStyles.find((b) => value >= b.min && value <= b.max);
+  return badge ? badge.style : "bg-gray-100 text-gray-700"; // Fallback style if needed
 };
 
 const positionIcons: Record<string, JSX.Element> = {
@@ -85,15 +97,17 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
         <td className="p-3">
           {isOneQBMode ? (
             <span
-              className={getValueBadgeStyle(player.oneQBValues.positionalTier)}
+              className={`font-semibold rounded-full px-2 py-1 ${getValueBadgeStyle(
+                player.oneQBValues.value
+              )}`}
             >
               {player.oneQBValues.value}
             </span>
           ) : (
             <span
-              className={getValueBadgeStyle(
-                player.superflexValues.positionalTier
-              )}
+              className={`font-semibold rounded-full px-2 py-1 ${getValueBadgeStyle(
+                player.superflexValues.value
+              )}`}
             >
               {player.superflexValues.value}
             </span>
