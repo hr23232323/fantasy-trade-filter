@@ -31,4 +31,4 @@ jobs:
       shell: bash
       run: |
         set -x
-        make deploy
+        make deploy-gha

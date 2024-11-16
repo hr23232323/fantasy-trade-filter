@@ -57,20 +57,21 @@ reset:
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) -p $(PROJECT_NAME) down --volumes --remove-orphans
 	$(DOCKER_COMPOSE) -f $(COMPOSE_FILE) -p $(PROJECT_NAME) up --build -d
 
-
+# Deploy command that calls both frontend and backend deploy commands
 deploy:
 	@echo "Deploying Frontend and Backend in parallel..."
-	$(MAKE) -C frontend deploy > frontend.log 2>&1 & PID1=$$!
-	$(MAKE) -C backend deploy > backend.log 2>&1 & PID2=$$!
+	$(MAKE) -C frontend deploy &
+	$(MAKE) -C backend deploy &
+	wait
 
-	wait $$PID1 || EXIT_CODE1=$$?; : ${EXIT_CODE1:=0}
-	wait $$PID2 || EXIT_CODE2=$$?; : ${EXIT_CODE2:=0}
+deploy-gha:
+	@echo "Deploying Backend..."
+	$(MAKE) -C backend deploy || { echo "Backend deploy failed"; cat backend.log; exit 1; }
 
-	if [ $$EXIT_CODE1 -ne 0 ]; then echo "Frontend deploy failed"; cat frontend.log; exit $$EXIT_CODE1; fi
-	if [ $$EXIT_CODE2 -ne 0 ]; then echo "Backend deploy failed"; cat backend.log; exit $$EXIT_CODE2; fi
+	@echo "Deploying Frontend..."
+	$(MAKE) -C frontend deploy || { echo "Frontend deploy failed"; cat frontend.log; exit 1; }
 
 	@echo "Both deployments finished successfully."
-
 
 
 # Help menu
