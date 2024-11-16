@@ -63,15 +63,14 @@ deploy:
 	$(MAKE) -C frontend deploy > frontend.log 2>&1 & PID1=$$!
 	$(MAKE) -C backend deploy > backend.log 2>&1 & PID2=$$!
 
-	wait $$PID1
-	EXIT_CODE1=$$?
-	wait $$PID2
-	EXIT_CODE2=$$?
+	wait $$PID1 || EXIT_CODE1=$$?; : ${EXIT_CODE1:=0}
+	wait $$PID2 || EXIT_CODE2=$$?; : ${EXIT_CODE2:=0}
 
 	if [ $$EXIT_CODE1 -ne 0 ]; then echo "Frontend deploy failed"; cat frontend.log; exit $$EXIT_CODE1; fi
 	if [ $$EXIT_CODE2 -ne 0 ]; then echo "Backend deploy failed"; cat backend.log; exit $$EXIT_CODE2; fi
 
 	@echo "Both deployments finished successfully."
+
 
 
 # Help menu
