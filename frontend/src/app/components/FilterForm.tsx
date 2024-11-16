@@ -47,13 +47,22 @@ const FilterForm: FC<FilterFormProps> = ({
   };
 
   return (
-    <div className="w-full md:w-2/3 p-4 bg-gray-100 rounded-lg shadow-md m-2">
-      <h2 className="text-lg font-bold mb-2 text-gray-800">Filter Players</h2>
+    <div className="w-full md:w-3/5 p-4 bg-gray-100 rounded-lg shadow-md m-2">
+      <h2 className="text-xl font-bold text-gray-800 mb-2">
+        🎯 Filter Players
+      </h2>
+      <p className="text-xs text-gray-600 mb-4">
+        Narrow down your options by position or age range. Combine filters to
+        pinpoint the best trade targets.
+      </p>
       <div className="flex flex-col space-y-4">
         <div className="flex flex-col p-4 bg-white shadow-md rounded-md">
-          <label className="text-gray-900 font-semibold text-lg mb-2">
+          <label className="text-gray-900 font-semibold text-lg">
             Position
           </label>
+          <p className="text-xs text-gray-500 mb-3">
+            Select one or more positions to refine your search
+          </p>
           <div className="flex flex-row flex-wrap gap-4">
             {Object.entries(positionOptions).map(([label, value]) => (
               <label
@@ -86,9 +95,12 @@ const FilterForm: FC<FilterFormProps> = ({
           </div>
         </div>
         <div className="mb-6 p-4 bg-white shadow-md rounded-md">
-          <label className="text-gray-900 font-semibold text-lg mb-2 block">
+          <label className="text-gray-900 font-semibold text-lg block">
             Age Range
           </label>
+          <p className="text-xs text-gray-500 mb-3">
+            Use the range slider to target players based on age range
+          </p>
           <ReactSlider
             className="relative w-full h-10 cursor-pointer"
             thumbClassName="w-6 h-6 bg-blue-500 shadow-md rounded-full flex items-center justify-center cursor-pointer hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"

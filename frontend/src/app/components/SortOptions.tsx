@@ -19,9 +19,14 @@ const SortOptions: FC<SortOptionsProps> = ({
   };
 
   return (
-    <div className="w-full md:w-1/3 p-6 bg-white rounded-lg shadow-lg m-2 border border-gray-200">
-      <h2 className="text-lg font-bold mb-4 text-gray-800">Sort Players</h2>
-      <div className="flex items-center gap-4">
+    <div className="w-full md:w-2/5 p-6 bg-gray-100 rounded-lg shadow-lg m-2 border border-gray-200">
+      <h2 className="text-xl font-bold text-gray-800 mb-2">🔄 Sort Players</h2>
+      <p className="text-xs text-gray-600 mb-4">
+        Sort players by Age, Value (1QB), or Value (2QB) to prioritize targets.
+        Use the arrow button to toggle between ascending and descending order.
+      </p>
+
+      <div className="flex items-center gap-4 p-6 bg-white shadow-md rounded-md">
         <label className="flex flex-col text-gray-700 w-full">
           <span className="mb-1 font-medium">Sort By</span>
 

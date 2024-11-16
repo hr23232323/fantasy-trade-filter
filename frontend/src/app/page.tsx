@@ -15,6 +15,7 @@ export const Home = () => {
   const [maxAge, setMaxAge] = useState<number>(42);
   const [sortField, setSortField] = useState<string>("age");
   const [sortOrder, setSortOrder] = useState<string>("desc");
+  const [resultSummary, setResultSummary] = useState<string>("");
 
   // Fetch all players once when the app loads
   useEffect(() => {
@@ -58,6 +59,20 @@ export const Home = () => {
     setPlayers(filtered);
   }, [position, minAge, maxAge, sortField, sortOrder, allPlayers]); // Dependencies
 
+  useEffect(() => {
+    const updateFilterSummary = () => {
+      const positionText =
+        position.length > 0 ? position.join(", ") : "all positions";
+      const sortText = `${sortField} in ${
+        sortOrder === "asc" ? "ascending" : "descending"
+      } order`;
+      const summary = `Showing ${players.length} players filtered by ${positionText}, aged between ${minAge} and ${maxAge}, sorted by ${sortText}.`;
+      setResultSummary(summary);
+    };
+
+    updateFilterSummary();
+  }, [position, minAge, maxAge, sortField, sortOrder, players.length]); // Dependencies
+
   const handleAgeRangeChange = (newMinAge: number, newMaxAge: number) => {
     setMinAge(newMinAge);
     setMaxAge(newMaxAge);
@@ -65,9 +80,13 @@ export const Home = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-6">
-        Fantasy Football Player - Dynasty Trade Finder
+      <h1 className="text-3xl font-bold text-center mb-4 mt-10">
+        🔍 Dynasty Trade Finder
       </h1>
+      <p className="text-center text-gray-400 mb-10">
+        Find your next big trade target in seconds! Use filters, sort by key
+        metrics, and uncover players to build a winning roster. 🚀
+      </p>
 
       <div className="flex flex-col md:flex-row md:space-x-4">
         <FilterForm
@@ -85,7 +104,11 @@ export const Home = () => {
         />
       </div>
 
-      <PlayerTable players={players} />
+      <PlayerTable players={players} resultSummary={resultSummary} />
+      <footer className="text-center text-gray-500 mt-8">
+        Built with ❤️ for Fantasy Football players. 🚀 Good luck on your next
+        trade!
+      </footer>
     </div>
   );
 };
