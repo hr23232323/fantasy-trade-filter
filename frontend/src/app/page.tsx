@@ -7,7 +7,7 @@ import PlayerTable from "./components/PlayerTable";
 import SortOptions from "./components/SortOptions";
 import { Player } from "./types/Player";
 
-export const Home = () => {
+const Home = () => {
   const [allPlayers, setAllPlayers] = useState<Player[]>([]); // Full dataset
   const [players, setPlayers] = useState<Player[]>([]);
   const [position, setPosition] = useState<string[]>([]); // Now an array of strings
