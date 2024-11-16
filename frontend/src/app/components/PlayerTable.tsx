@@ -36,16 +36,18 @@ const PlayerTable: FC<PlayerTableProps> = ({
   );
 
   return (
-    <div className="overflow-x-auto mt-4 bg-gray-100 p-4 rounded-lg shadow-md">
+    <div className="overflow-x-auto mt-4 bg-gray-100 p-2 md:p-4 md:rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-gray-800 mt-2">📋 Player List</h2>
       <p className="text-md text-gray-700 bg-gray-100 rounded mt-1 mb-6">
         {resultSummary}
       </p>
-      <table className="min-w-full bg-white shadow-md rounded-lg">
+      <table className="text-sm min-w-full bg-white shadow-md rounded-lg">
         <thead className="bg-gray-800 text-white sticky top-0">
           <tr>
             <th className="p-3 text-left">Player</th>
-            <th className="p-3 text-left">Position Rank</th>
+            <th className="p-3 text-left md:table-cell hidden">
+              Position Rank
+            </th>
             <th className="p-3 text-left">Age</th>
             <th className="p-3 text-left">
               {isOneQBMode ? "Value (1QB)" : "Value (2QB)"}

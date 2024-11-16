@@ -89,7 +89,7 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
           {<InjuryIndicator player={player} />}
           {<RookieBadge player={player} />}
         </td>
-        <td className="p-3">
+        <td className="p-3 md:table-cell hidden">
           {isOneQBMode
             ? player.oneQBValues.positionalRank
             : player.superflexValues.positionalRank}

@@ -105,7 +105,7 @@ const Home = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto md:p-4">
       <h1 className="text-3xl font-bold text-center mb-4 mt-10">
         🔍 Dynasty Trade Finder
       </h1>
@@ -114,7 +114,7 @@ const Home = () => {
         metrics, and uncover players to build a winning roster. 🚀
       </p>
 
-      <div className="flex flex-col md:flex-row md:space-x-4">
+      <div className="flex flex-col mx-4 md:flex-row md:space-x-4 md:mx-10">
         <FilterForm
           position={position}
           minAge={minAge}
