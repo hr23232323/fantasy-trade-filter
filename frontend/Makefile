@@ -4,10 +4,16 @@ APP_NAME=frontend
 
 # Make commands to deploy app to GCP Cloud Run
 
+.PHONY: set-gcp-project
+set-gcp-project:
+	gcloud config set project $(GCP_PROJECT)
+
+
 # Build for Cloud Run
 .PHONY: build-cloud
 build-cloud:
 	docker buildx build --platform linux/amd64 -t gcr.io/$(GCP_PROJECT)/$(APP_NAME) -f prod.Dockerfile .
+
 
 .PHONY: push
 push:
@@ -16,7 +22,7 @@ push:
 
 .PHONY: deploy
 deploy:
-	$(MAKE) build-cloud && $(MAKE) push && gcloud run deploy $(APP_NAME) \
+	$(MAKE) set-gcp-project && $(MAKE) build-cloud && $(MAKE) push && gcloud run deploy $(APP_NAME) \
 	--image gcr.io/$(GCP_PROJECT)/$(APP_NAME) \
 	--platform managed \
 	--region us-central1 \
