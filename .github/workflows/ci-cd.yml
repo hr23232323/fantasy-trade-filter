@@ -28,6 +28,7 @@ jobs:
       run: gcloud auth configure-docker
 
     - name: Deploy Frontend and Backend
+      shell: bash
       run: |
         set -x
         make deploy
