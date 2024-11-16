@@ -114,6 +114,20 @@ def sort_data(data: List[dict], sort_field: str, sort_order: str) -> List[dict]:
     reverse = sort_order == "desc"
     return sorted(data, key=lambda x: get_nested_value(x, sort_field), reverse=reverse)
 
+@app.get("/all-players")
+async def all_players() -> List[dict]:
+    """
+    Returns all players.
+    """
+    try:
+        # Load data from GCS or local
+        players_data = load_json_from_gcs(BUCKET_NAME, FILE_NAME)
+
+        return players_data
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/filter")
 async def filter_players(
