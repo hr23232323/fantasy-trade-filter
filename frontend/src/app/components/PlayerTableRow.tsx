@@ -14,15 +14,30 @@ interface PlayerTableRowProps {
 const getPositionRowColor = (position: string) => {
   switch (position) {
     case "QB":
-      return "bg-blue-100"; // Subtle blue for QB
+      return "bg-blue-100 hover:bg-blue-200"; // Subtle blue for QB
     case "WR":
-      return "bg-orange-100"; // Subtle orange for WR
+      return "bg-orange-100 hover:bg-orange-200"; // Subtle orange for WR
     case "RB":
-      return "bg-green-100"; // Subtle green for RB
+      return "bg-green-100 hover:bg-green-200"; // Subtle green for RB
     case "TE":
-      return "bg-purple-100"; // Subtle purple for TE
+      return "bg-purple-100 hover:bg-purple-200"; // Subtle purple for TE
     default:
-      return "bg-gray-100"; // Neutral gray for others
+      return "bg-gray-100 hover:bg-gray-200"; // Neutral gray for others
+  }
+};
+
+const getPositionExpandColor = (position: string) => {
+  switch (position) {
+    case "QB":
+      return "bg-blue-50"; // Subtle blue for QB
+    case "WR":
+      return "bg-orange-50"; // Subtle orange for WR
+    case "RB":
+      return "bg-green-50"; // Subtle green for RB
+    case "TE":
+      return "bg-purple-50"; // Subtle purple for TE
+    default:
+      return "bg-gray-50"; // Neutral gray for others
   }
 };
 
@@ -34,6 +49,14 @@ const getValueBadgeStyle = (tier: number) => {
   return "bg-red-100 text-red-700 font-semibold rounded-full px-2 py-1";
 };
 
+const positionIcons: Record<string, JSX.Element> = {
+  WR: <span>🧤</span>, // Wide Receiver
+  RB: <span>🏃‍♂️</span>, // Running Back
+  QB: <span>🏈</span>, // Quarterback
+  TE: <span>🛡️</span>, // Tight End
+  RDP: <span>📜</span>, // Rookie Draft Pick
+};
+
 export const PlayerTableRow: FC<PlayerTableRowProps> = ({
   player,
   isExpanded,
@@ -43,17 +66,22 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
   return (
     <Fragment key={player.slug}>
       <tr
-        className={`border-t hover:bg-gray-100 ${getPositionRowColor(
+        className={`border-t cursor-pointer ${getPositionRowColor(
           player.position
         )}`}
+        onClick={() => toggleExpandRow(player.slug)}
       >
         <td className="p-3 flex items-center">
-          {player.playerName}
+          {positionIcons[player.position] || player.position}
+          <span className="ml-2">{player.playerName}</span>
           {<InjuryIndicator player={player} />}
         </td>
-        <td className="p-3">{player.position}</td>
+        <td className="p-3">
+          {isOneQBMode
+            ? player.oneQBValues.positionalRank
+            : player.superflexValues.positionalRank}
+        </td>
         <td className="p-3">{player.age}</td>
-        <td className="p-3">{player.teamLongName}</td>
         <td className="p-3">
           {isOneQBMode ? (
             <span
@@ -82,7 +110,12 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
         </td>
       </tr>
 
-      {isExpanded && <ExpandedRowDetails player={player} />}
+      {isExpanded && (
+        <ExpandedRowDetails
+          player={player}
+          bgColor={getPositionExpandColor(player.position)}
+        />
+      )}
     </Fragment>
   );
 };

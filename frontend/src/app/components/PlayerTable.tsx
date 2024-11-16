@@ -45,9 +45,8 @@ const PlayerTable: FC<PlayerTableProps> = ({
         <thead className="bg-gray-800 text-white sticky top-0">
           <tr>
             <th className="p-3 text-left">Player</th>
-            <th className="p-3 text-left">Position</th>
+            <th className="p-3 text-left">Position Rank</th>
             <th className="p-3 text-left">Age</th>
-            <th className="p-3 text-left">Team</th>
             <th className="p-3 text-left">
               {isOneQBMode ? "Value (1QB)" : "Value (2QB)"}
             </th>

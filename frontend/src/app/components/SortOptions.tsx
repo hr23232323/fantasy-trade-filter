@@ -35,12 +35,12 @@ const SortOptions: FC<SortOptionsProps> = ({
               onChange={(e) => onSortFieldChange(e.target.value)}
               className="w-full mr-2 p-2 border rounded-lg text-gray-900 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none hover:border-blue-500 transition ease-in-out duration-150"
             >
-              <option value="age">Age</option>
               {isOneQBMode ? (
                 <option value="oneQBValues.value">Value (1QB)</option>
               ) : (
                 <option value="superflexValues.value">Value (2QB)</option>
               )}
+              <option value="age">Age</option>
             </select>
             <button
               onClick={toggleSortOrder}

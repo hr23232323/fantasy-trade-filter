@@ -8,13 +8,19 @@ import SortOptions from "./components/SortOptions";
 import LeagueModeToggle from "./components/LeagueModeToggle";
 import { Player } from "./types/Player";
 
+const sortFieldReadable: Record<string, string> = {
+  "oneQBValues.value": "Value (1QB)",
+  "superflexValues.value": "Value (2QB)",
+  age: "Age",
+};
+
 const Home = () => {
   const [allPlayers, setAllPlayers] = useState<Player[]>([]); // Full dataset
   const [players, setPlayers] = useState<Player[]>([]);
   const [position, setPosition] = useState<string[]>([]); // Now an array of strings
   const [minAge, setMinAge] = useState<number>(18);
   const [maxAge, setMaxAge] = useState<number>(42);
-  const [sortField, setSortField] = useState<string>("age");
+  const [sortField, setSortField] = useState<string>("oneQBValues.value");
   const [sortOrder, setSortOrder] = useState<string>("desc");
   const [isOneQBMode, setIsOneQBMode] = useState(true); // Toggle between 1QB and 2QB
   const [resultSummary, setResultSummary] = useState<string>("");
@@ -65,7 +71,7 @@ const Home = () => {
     const updateFilterSummary = () => {
       const positionText =
         position.length > 0 ? position.join(", ") : "all positions";
-      const sortText = `${sortField} in ${
+      const sortText = `${sortFieldReadable[sortField]} in ${
         sortOrder === "asc" ? "ascending" : "descending"
       } order`;
       const summary = `Showing ${players.length} players filtered by ${positionText}, aged between ${minAge} and ${maxAge}, sorted by ${sortText}.`;
