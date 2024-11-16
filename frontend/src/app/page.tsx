@@ -7,6 +7,7 @@ import PlayerTable from "./components/PlayerTable";
 import SortOptions from "./components/SortOptions";
 import LeagueModeToggle from "./components/LeagueModeToggle";
 import { Player } from "./types/Player";
+import SkeletonPlayerTable from "./components/SkeletonPlayerTable"; // Add a skeleton screen for the table
 
 const sortFieldReadable: Record<string, string> = {
   "oneQBValues.value": "Value (1QB)",
@@ -15,33 +16,35 @@ const sortFieldReadable: Record<string, string> = {
 };
 
 const Home = () => {
-  const [allPlayers, setAllPlayers] = useState<Player[]>([]); // Full dataset
+  const [allPlayers, setAllPlayers] = useState<Player[]>([]);
   const [players, setPlayers] = useState<Player[]>([]);
-  const [position, setPosition] = useState<string[]>([]); // Now an array of strings
+  const [position, setPosition] = useState<string[]>([]);
   const [minAge, setMinAge] = useState<number>(18);
   const [maxAge, setMaxAge] = useState<number>(42);
   const [sortField, setSortField] = useState<string>("oneQBValues.value");
   const [sortOrder, setSortOrder] = useState<string>("desc");
-  const [isOneQBMode, setIsOneQBMode] = useState(true); // Toggle between 1QB and 2QB
+  const [isOneQBMode, setIsOneQBMode] = useState(true);
   const [resultSummary, setResultSummary] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
 
-  // Fetch all players once when the app loads
   useEffect(() => {
     const fetchPlayers = async () => {
+      setLoading(true); // Start loading
       try {
         console.log("Fetching all players...");
         const response = await axios.get<Player[]>("/api/all-players");
         setAllPlayers(response.data);
-        setPlayers(response.data); // Initially show all players
+        setPlayers(response.data);
       } catch (error) {
         console.error("Error fetching players:", error);
+      } finally {
+        setLoading(false); // End loading
       }
     };
 
     fetchPlayers();
   }, []);
 
-  // Apply filters and sorting when any state changes
   useEffect(() => {
     const filtered = allPlayers
       .filter(
@@ -65,7 +68,7 @@ const Home = () => {
       });
 
     setPlayers(filtered);
-  }, [position, minAge, maxAge, sortField, sortOrder, allPlayers]); // Dependencies
+  }, [position, minAge, maxAge, sortField, sortOrder, allPlayers]);
 
   useEffect(() => {
     const updateFilterSummary = () => {
@@ -79,7 +82,7 @@ const Home = () => {
     };
 
     updateFilterSummary();
-  }, [position, minAge, maxAge, sortField, sortOrder, players.length]); // Dependencies
+  }, [position, minAge, maxAge, sortField, sortOrder, players.length]);
 
   const handleAgeRangeChange = (newMinAge: number, newMaxAge: number) => {
     setMinAge(newMinAge);
@@ -89,12 +92,10 @@ const Home = () => {
   const toggleQBMode = () => {
     setIsOneQBMode((prev) => {
       if (!prev === true) {
-        // Change to 1QB mode
         if (sortField === "superflexValues.value") {
           setSortField("oneQBValues.value");
         }
       } else {
-        // Change to 2QB mode
         if (sortField === "oneQBValues.value") {
           setSortField("superflexValues.value");
         }
@@ -137,11 +138,15 @@ const Home = () => {
         </div>
       </div>
 
-      <PlayerTable
-        players={players}
-        resultSummary={resultSummary}
-        isOneQBMode={isOneQBMode}
-      />
+      {loading ? (
+        <SkeletonPlayerTable /> // Display skeleton while loading
+      ) : (
+        <PlayerTable
+          players={players}
+          resultSummary={resultSummary}
+          isOneQBMode={isOneQBMode}
+        />
+      )}
       <footer className="text-center text-gray-500 mt-8">
         Built with ❤️ for Fantasy Football players. 🚀 Good luck on your next
         trade!

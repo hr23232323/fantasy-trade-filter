@@ -21,7 +21,6 @@ const FilterForm: FC<FilterFormProps> = ({
     RB: "RB",
     QB: "QB",
     TE: "TE",
-    PICK: "RDP",
   };
 
   // Handle change in position checkbox

@@ -2,6 +2,7 @@ import React, { FC, Fragment } from "react";
 import { Player } from "../types/Player";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { InjuryIndicator } from "./InjuryIndicator";
+import { RookieBadge } from "./RookieBadge";
 import { ExpandedRowDetails } from "./ExpandedRowDetails";
 
 interface PlayerTableRowProps {
@@ -66,7 +67,6 @@ const positionIcons: Record<string, JSX.Element> = {
   RB: <span>🏃‍♂️</span>, // Running Back
   QB: <span>🏈</span>, // Quarterback
   TE: <span>🛡️</span>, // Tight End
-  RDP: <span>📜</span>, // Rookie Draft Pick
 };
 
 export const PlayerTableRow: FC<PlayerTableRowProps> = ({
@@ -87,6 +87,7 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
           {positionIcons[player.position] || player.position}
           <span className="ml-2">{player.playerName}</span>
           {<InjuryIndicator player={player} />}
+          {<RookieBadge player={player} />}
         </td>
         <td className="p-3">
           {isOneQBMode
