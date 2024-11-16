@@ -47,7 +47,7 @@ const FilterForm: FC<FilterFormProps> = ({
   };
 
   return (
-    <div className="w-full md:w-3/5 p-4 bg-gray-100 rounded-lg shadow-md m-2">
+    <div className="md:w-3/5 p-4 bg-gray-100 rounded-lg shadow-md m-2">
       <h2 className="text-xl font-bold text-gray-800 mb-2">
         🎯 Filter Players
       </h2>

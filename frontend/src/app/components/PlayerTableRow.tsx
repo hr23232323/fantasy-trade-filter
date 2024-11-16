@@ -8,6 +8,7 @@ interface PlayerTableRowProps {
   player: Player;
   isExpanded: boolean;
   toggleExpandRow: (slug: string) => void;
+  isOneQBMode: boolean;
 }
 
 const getPositionRowColor = (position: string) => {
@@ -37,6 +38,7 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
   player,
   isExpanded,
   toggleExpandRow,
+  isOneQBMode,
 }) => {
   return (
     <Fragment key={player.slug}>
@@ -53,20 +55,21 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
         <td className="p-3">{player.age}</td>
         <td className="p-3">{player.teamLongName}</td>
         <td className="p-3">
-          <span
-            className={getValueBadgeStyle(player.oneQBValues.positionalTier)}
-          >
-            {player.oneQBValues.value}
-          </span>
-        </td>
-        <td className="p-3">
-          <span
-            className={getValueBadgeStyle(
-              player.superflexValues.positionalTier
-            )}
-          >
-            {player.superflexValues.value}
-          </span>
+          {isOneQBMode ? (
+            <span
+              className={getValueBadgeStyle(player.oneQBValues.positionalTier)}
+            >
+              {player.oneQBValues.value}
+            </span>
+          ) : (
+            <span
+              className={getValueBadgeStyle(
+                player.superflexValues.positionalTier
+              )}
+            >
+              {player.superflexValues.value}
+            </span>
+          )}
         </td>
         <td className="p-3 text-right">
           <button

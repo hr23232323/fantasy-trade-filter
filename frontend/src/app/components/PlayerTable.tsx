@@ -5,9 +5,14 @@ import { PlayerTableRow } from "./PlayerTableRow";
 interface PlayerTableProps {
   players: Player[];
   resultSummary: string;
+  isOneQBMode: boolean;
 }
 
-const PlayerTable: FC<PlayerTableProps> = ({ players, resultSummary }) => {
+const PlayerTable: FC<PlayerTableProps> = ({
+  players,
+  resultSummary,
+  isOneQBMode,
+}) => {
   const [expandedRow, setExpandedRow] = useState<string | null>(null); // Track expanded rows for details
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 25;
@@ -43,8 +48,9 @@ const PlayerTable: FC<PlayerTableProps> = ({ players, resultSummary }) => {
             <th className="p-3 text-left">Position</th>
             <th className="p-3 text-left">Age</th>
             <th className="p-3 text-left">Team</th>
-            <th className="p-3 text-left">Value (1QB)</th>
-            <th className="p-3 text-left">Value (2QB)</th>
+            <th className="p-3 text-left">
+              {isOneQBMode ? "Value (1QB)" : "Value (2QB)"}
+            </th>
             <th className="p-3 text-left"></th> {/* Expand icon */}
           </tr>
         </thead>
@@ -55,6 +61,7 @@ const PlayerTable: FC<PlayerTableProps> = ({ players, resultSummary }) => {
                 player={player}
                 toggleExpandRow={toggleExpandRow}
                 isExpanded={expandedRow === player.slug}
+                isOneQBMode={isOneQBMode}
               />
             );
           })}

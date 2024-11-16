@@ -5,6 +5,7 @@ import axios from "axios";
 import FilterForm from "./components/FilterForm";
 import PlayerTable from "./components/PlayerTable";
 import SortOptions from "./components/SortOptions";
+import LeagueModeToggle from "./components/LeagueModeToggle";
 import { Player } from "./types/Player";
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
   const [maxAge, setMaxAge] = useState<number>(42);
   const [sortField, setSortField] = useState<string>("age");
   const [sortOrder, setSortOrder] = useState<string>("desc");
+  const [isOneQBMode, setIsOneQBMode] = useState(true); // Toggle between 1QB and 2QB
   const [resultSummary, setResultSummary] = useState<string>("");
 
   // Fetch all players once when the app loads
@@ -78,6 +80,23 @@ const Home = () => {
     setMaxAge(newMaxAge);
   };
 
+  const toggleQBMode = () => {
+    setIsOneQBMode((prev) => {
+      if (!prev === true) {
+        // Change to 1QB mode
+        if (sortField === "superflexValues.value") {
+          setSortField("oneQBValues.value");
+        }
+      } else {
+        // Change to 2QB mode
+        if (sortField === "oneQBValues.value") {
+          setSortField("superflexValues.value");
+        }
+      }
+      return !prev;
+    });
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold text-center mb-4 mt-10">
@@ -96,15 +115,27 @@ const Home = () => {
           onPositionChange={setPosition}
           onAgeRangeChange={handleAgeRangeChange}
         />
-        <SortOptions
-          sortField={sortField}
-          sortOrder={sortOrder}
-          onSortFieldChange={setSortField}
-          onSortOrderChange={setSortOrder}
-        />
+
+        <div className="flex flex-col w-full md:w-2/5">
+          <SortOptions
+            sortField={sortField}
+            sortOrder={sortOrder}
+            onSortFieldChange={setSortField}
+            onSortOrderChange={setSortOrder}
+            isOneQBMode={isOneQBMode}
+          />
+          <LeagueModeToggle
+            isOneQBMode={isOneQBMode}
+            toggleQBMode={toggleQBMode}
+          />
+        </div>
       </div>
 
-      <PlayerTable players={players} resultSummary={resultSummary} />
+      <PlayerTable
+        players={players}
+        resultSummary={resultSummary}
+        isOneQBMode={isOneQBMode}
+      />
       <footer className="text-center text-gray-500 mt-8">
         Built with ❤️ for Fantasy Football players. 🚀 Good luck on your next
         trade!
