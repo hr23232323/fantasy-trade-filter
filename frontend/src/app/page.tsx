@@ -106,13 +106,15 @@ const Home = () => {
 
   return (
     <div className="container mx-auto md:p-4">
-      <h1 className="text-3xl font-bold text-center mb-4 mt-10">
-        🔍 Dynasty Trade Finder
-      </h1>
-      <p className="text-center text-gray-400 mb-10">
-        Find your next big trade target in seconds! Use filters, sort by key
-        metrics, and uncover players to build a winning roster. 🚀
-      </p>
+      <div className="px-8">
+        <h1 className="text-3xl font-bold text-center mb-4 mt-10">
+          🔍 Dynasty Trade Finder
+        </h1>
+        <p className="text-center text-gray-400 mb-10">
+          Find your next big trade target in seconds! Use filters, sort by key
+          metrics, and uncover players to build a winning roster. 🚀
+        </p>
+      </div>
 
       <div className="flex flex-col mx-4 md:flex-row md:space-x-4 md:mx-10">
         <FilterForm
@@ -147,7 +149,7 @@ const Home = () => {
           isOneQBMode={isOneQBMode}
         />
       )}
-      <footer className="text-center text-gray-500 mt-8">
+      <footer className="text-center text-gray-500 md:mt-8 my-4 py-2 px-6">
         Built with ❤️ for Fantasy Football players. 🚀 Good luck on your next
         trade!
       </footer>

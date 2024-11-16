@@ -122,6 +122,7 @@ async def all_players() -> List[dict]:
     try:
         # Load data from GCS or local
         players_data = load_json_from_gcs(BUCKET_NAME, FILE_NAME)
+        print("Returning all players")
 
         return players_data
 

@@ -7,6 +7,7 @@ on:
 
 jobs:
   deploy:
+    name: Deploy new BE and FE images to Cloud Run
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +25,6 @@ jobs:
       run: gcloud auth configure-docker
 
     - name: Deploy Frontend and Backend
-      run: make deploy
+      run: |
+        set -x
+        make deploy
