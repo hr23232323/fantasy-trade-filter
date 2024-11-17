@@ -132,6 +132,7 @@ const FilterForm: FC<FilterFormProps> = ({
               const isActive = index === 1;
               return (
                 <div
+                  key={index} // Pass the key explicitly
                   {...props}
                   className={`h-2 rounded-full ${
                     isActive
