@@ -76,7 +76,7 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
   isOneQBMode,
 }) => {
   return (
-    <Fragment key={player.slug}>
+    <Fragment>
       <tr
         className={`border-t cursor-pointer ${getPositionRowColor(
           player.position
@@ -86,8 +86,8 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
         <td className="p-3 flex items-center">
           {positionIcons[player.position] || player.position}
           <span className="ml-2">{player.playerName}</span>
-          {<InjuryIndicator player={player} />}
-          {<RookieBadge player={player} />}
+          <InjuryIndicator player={player} />
+          <RookieBadge player={player} />
         </td>
         <td className="p-3 md:table-cell hidden">
           {isOneQBMode
@@ -124,7 +124,6 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
           </button>
         </td>
       </tr>
-
       {isExpanded && (
         <ExpandedRowDetails
           player={player}

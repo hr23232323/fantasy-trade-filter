@@ -112,28 +112,43 @@ const FilterForm: FC<FilterFormProps> = ({
             max={42}
             minDistance={1}
             pearling
-            renderThumb={(props, state) => (
-              <div {...props} className="relative flex justify-center">
-                <div className="absolute top-full mt-4 px-2 py-1 bg-blue-500 text-white text-xs rounded shadow-md">
-                  {state.valueNow}
-                </div>
-              </div>
-            )}
-            marks={[18, 24, 30, 36, 42]}
-            markClassName="w-1 h-4 bg-gray-400 rounded-full"
-            renderMark={(props) => (
-              <div {...props} className="relative mt-2">
-                <span className="absolute top-4 text-xs text-gray-500">
-                  {props.value}
-                </span>
-              </div>
-            )}
-            renderTrack={(props, { index }) => {
-              const isActive = index === 1;
+            renderThumb={(props, state) => {
+              const { key, ...restProps } = props;
               return (
                 <div
-                  key={index} // Pass the key explicitly
-                  {...props}
+                  key={key} // Pass the key explicitly
+                  {...restProps}
+                  className="relative flex justify-center"
+                >
+                  <div className="absolute top-full mt-4 px-2 py-1 bg-blue-500 text-white text-xs rounded shadow-md">
+                    {state.valueNow}
+                  </div>
+                </div>
+              );
+            }}
+            marks={[18, 24, 30, 36, 42]}
+            markClassName="w-1 h-4 bg-gray-400 rounded-full"
+            renderMark={(props) => {
+              const { key, ...restProps } = props;
+              return (
+                <div
+                  key={key} // Pass the key explicitly
+                  {...restProps}
+                  className="relative mt-2"
+                >
+                  <span className="absolute top-4 text-xs text-gray-500">
+                    {props.value}
+                  </span>
+                </div>
+              );
+            }}
+            renderTrack={(props, { index }) => {
+              const isActive = index === 1;
+              const { key, ...restProps } = props;
+              return (
+                <div
+                  key={key} // Pass the key explicitly
+                  {...restProps}
                   className={`h-2 rounded-full ${
                     isActive
                       ? "bg-gradient-to-r from-blue-500 to-blue-300"

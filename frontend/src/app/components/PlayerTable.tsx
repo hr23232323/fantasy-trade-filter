@@ -59,6 +59,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
           {paginatedPlayers.map((player, index) => {
             return (
               <PlayerTableRow
+                key={index}
                 player={player}
                 toggleExpandRow={toggleExpandRow}
                 isExpanded={expandedRow === player.slug}

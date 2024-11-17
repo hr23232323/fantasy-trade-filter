@@ -10,7 +10,6 @@ interface CSPostHogProviderProps {
 
 export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
   const [isPosthogInitialized, setIsPosthogInitialized] = useState(false);
-  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     const initializePostHog = async () => {
@@ -21,32 +20,25 @@ export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
         const config = response.data;
 
         if (config.NEXT_PUBLIC_ENABLE_POSTHOG !== "0") {
-          console.log("Posthog enabled - initializing...");
           posthog.init(config.NEXT_PUBLIC_POSTHOG_KEY, {
             api_host: config.NEXT_PUBLIC_POSTHOG_HOST,
             person_profiles: "always",
           });
           setIsPosthogInitialized(true);
-        } else {
-          console.log("Posthog disabled.");
         }
       } catch (error) {
         console.error("Error initializing PostHog:", error);
-      } finally {
-        setShouldRender(true); // Ensure rendering happens even if PostHog is disabled or errors occur
       }
     };
 
     initializePostHog();
   }, []);
 
-  if (!shouldRender) {
-    return null; // Optional: render a loading state if needed
-  }
-
+  // Always render children immediately to avoid hydration errors
   if (isPosthogInitialized) {
     return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
   }
 
-  return <>{children}</>; // Render children even if PostHog is not initialized
+  // Render children without PostHog if not initialized yet
+  return <>{children}</>;
 }

@@ -21,7 +21,6 @@ export const ExpandedRowDetails: FC<ExpandedRowDetailsProps> = ({
     <tr>
       <td colSpan={7} className={`${bgColor} p-4 border-b-8`}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          {/* Player Info Section */}
           <div>
             <div className="flex items-center space-x-2">
               <strong>{player.position}</strong>
@@ -35,8 +34,6 @@ export const ExpandedRowDetails: FC<ExpandedRowDetailsProps> = ({
               <strong>Weight:</strong> {player.weight} lbs
             </div>
           </div>
-
-          {/* Experience and Bye Week Section */}
           <div>
             <div className="text-gray-600">
               <FaCalendarAlt className="inline-block mr-1 text-gray-500" />
@@ -47,8 +44,6 @@ export const ExpandedRowDetails: FC<ExpandedRowDetailsProps> = ({
             </div>
           </div>
           <RankingBars player={player} />
-
-          {/* Injury Section (If Applicable) */}
           {player.injury.injuryName && (
             <div className="text-red-600">
               <FaHeartbeat className="inline-block mr-1 text-red-500" />
