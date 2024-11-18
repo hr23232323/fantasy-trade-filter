@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import axios from "axios";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
+export const dynamic = "force-dynamic"; // Tell NextJS to make this dynamic
 
 interface CSPostHogProviderProps {
   children: ReactNode;
