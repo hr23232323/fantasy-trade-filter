@@ -6,12 +6,16 @@ interface PlayerTableProps {
   players: Player[];
   resultSummary: string;
   isOneQBMode: boolean;
+  searchValue: string;
+  handleSearch: (nameString: string) => void;
 }
 
 const PlayerTable: FC<PlayerTableProps> = ({
   players,
   resultSummary,
   isOneQBMode,
+  searchValue,
+  handleSearch,
 }) => {
   const [expandedRow, setExpandedRow] = useState<string | null>(null); // Track expanded rows for details
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,9 +42,21 @@ const PlayerTable: FC<PlayerTableProps> = ({
   return (
     <div className="overflow-x-auto mt-4 bg-gray-100 p-2 md:p-4 md:rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-gray-800 mt-2">📋 Player List</h2>
-      <p className="text-md text-gray-700 bg-gray-100 rounded mt-1 mb-6">
+      <p className="text-sm text-gray-700 bg-gray-100 rounded mt-1 mb-6">
         {resultSummary}
       </p>
+      <div className="flex flex-row text-md text-gray-700 mb-4">
+        <label className="hidden md:flex p-2 self-center font-bold">
+          Search by Name:{" "}
+        </label>
+        <input
+          type="text"
+          placeholder="Search by player name..."
+          value={searchValue}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="flex grow p-2 border rounded-md"
+        />
+      </div>
       <table className="text-sm min-w-full bg-white shadow-md rounded-lg">
         <thead className="bg-gray-800 text-white sticky top-0">
           <tr>

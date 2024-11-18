@@ -25,6 +25,7 @@ const Home = () => {
   const [sortOrder, setSortOrder] = useState<string>("desc");
   const [isOneQBMode, setIsOneQBMode] = useState(true);
   const [resultSummary, setResultSummary] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true); // Loading state
 
   useEffect(() => {
@@ -51,7 +52,8 @@ const Home = () => {
         (player) =>
           (position.length === 0 || position.includes(player.position)) &&
           player.age >= minAge &&
-          player.age <= maxAge
+          player.age <= maxAge &&
+          player.playerName.toLowerCase().includes(searchQuery.toLowerCase()) // Search by name
       )
       .sort((a, b) => {
         if (sortField === "age") {
@@ -68,7 +70,7 @@ const Home = () => {
       });
 
     setPlayers(filtered);
-  }, [position, minAge, maxAge, sortField, sortOrder, allPlayers]);
+  }, [position, minAge, maxAge, sortField, sortOrder, allPlayers, searchQuery]);
 
   useEffect(() => {
     const updateFilterSummary = () => {
@@ -77,16 +79,31 @@ const Home = () => {
       const sortText = `${sortFieldReadable[sortField]} in ${
         sortOrder === "asc" ? "ascending" : "descending"
       } order`;
-      const summary = `Showing ${players.length} players filtered by ${positionText}, aged between ${minAge} and ${maxAge}, sorted by ${sortText}.`;
+      const searchText = searchQuery
+        ? `, where name contains "${searchQuery}".`
+        : ".";
+      const summary = `Showing ${players.length} players filtered by ${positionText}, aged between ${minAge} and ${maxAge}, sorted by ${sortText}${searchText}`;
       setResultSummary(summary);
     };
 
     updateFilterSummary();
-  }, [position, minAge, maxAge, sortField, sortOrder, players.length]);
+  }, [
+    position,
+    minAge,
+    maxAge,
+    sortField,
+    sortOrder,
+    players.length,
+    searchQuery,
+  ]);
 
   const handleAgeRangeChange = (newMinAge: number, newMaxAge: number) => {
     setMinAge(newMinAge);
     setMaxAge(newMaxAge);
+  };
+
+  const handleSearch = (nameString: string) => {
+    setSearchQuery(nameString);
   };
 
   const toggleQBMode = () => {
@@ -108,7 +125,7 @@ const Home = () => {
     <div className="container mx-auto md:p-4">
       <div className="px-8">
         <h1 className="text-3xl font-bold text-center mb-4 mt-10">
-          🔍 Dynasty Trade Finder
+          🔍 Dynasty Trade Target Finder
         </h1>
         <p className="text-center text-gray-400 mb-10">
           Find your next big trade target in seconds! Use filters, sort by key
@@ -147,6 +164,8 @@ const Home = () => {
           players={players}
           resultSummary={resultSummary}
           isOneQBMode={isOneQBMode}
+          searchValue={searchQuery}
+          handleSearch={handleSearch}
         />
       )}
       <footer className="text-center text-gray-500 md:mt-8 my-4 py-2 px-6">
