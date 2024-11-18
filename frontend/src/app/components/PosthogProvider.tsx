@@ -19,9 +19,9 @@ export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
 
         const config = response.data;
 
-        if (config.NEXT_PUBLIC_ENABLE_POSTHOG !== "0") {
-          posthog.init(config.NEXT_PUBLIC_POSTHOG_KEY, {
-            api_host: config.NEXT_PUBLIC_POSTHOG_HOST,
+        if (config.ENABLE_POSTHOG !== "0") {
+          posthog.init(config.POSTHOG_KEY, {
+            api_host: config.POSTHOG_HOST,
             person_profiles: "always",
           });
           setIsPosthogInitialized(true);

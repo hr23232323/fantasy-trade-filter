@@ -3,14 +3,14 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
-    const posthog_enabled = process.env.NEXT_PUBLIC_ENABLE_POSTHOG;
-    const posthog_key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-    const posthog_url = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+    const posthog_enabled = process.env.ENABLE_POSTHOG;
+    const posthog_key = process.env.POSTHOG_KEY;
+    const posthog_url = process.env.POSTHOG_HOST;
 
     const vars = {
-      NEXT_PUBLIC_ENABLE_POSTHOG: posthog_enabled,
-      NEXT_PUBLIC_POSTHOG_KEY: posthog_key,
-      NEXT_PUBLIC_POSTHOG_HOST: posthog_url,
+      ENABLE_POSTHOG: posthog_enabled,
+      POSTHOG_KEY: posthog_key,
+      POSTHOG_HOST: posthog_url,
     }
 
     return NextResponse.json(vars, { status: 200 });
