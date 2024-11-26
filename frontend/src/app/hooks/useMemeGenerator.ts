@@ -6,9 +6,9 @@ export const useMemeGenerator = () => {
   const [error, setError] = useState<string | null>(null);
 
   const templates = [
-    "db",
+    "ggg",
     "drake",
-    "cmm",
+    "keanu",
     "ds",
   ];
 
@@ -36,6 +36,8 @@ export const useMemeGenerator = () => {
       }
 
       const { memeTexts } = await response.json();
+
+      console.log(memeTexts)
 
       // Generate URLs for the memes using the generated text
       const generatedUrls = memeTexts.map((meme: any, index: number) => {

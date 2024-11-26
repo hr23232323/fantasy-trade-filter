@@ -30,15 +30,36 @@ const CreateMeme = () => {
           placeholder="Type your text here..."
           className="w-full p-2 border rounded-lg text-gray-900 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none hover:border-blue-500 transition ease-in-out duration-150"
           rows={4}
+          disabled={loading} // Disable input while loading
         />
       </div>
 
+      {error && (
+        <p className="mb-4 text-red-500 font-semibold text-center">
+          {error} Please try again.
+        </p>
+      )}
+
       <button
         onClick={handleGenerate}
-        className="w-full bg-blue-500 text-white p-3 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition ease-in-out duration-150 font-bold"
+        className={`w-full p-3 rounded-lg shadow font-bold text-white ${
+          loading
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-300"
+        } transition ease-in-out duration-150`}
+        disabled={loading} // Disable button while loading
       >
-        Generate Memes
+        {loading ? "Generating Memes..." : "Generate Memes"}
       </button>
+
+      {loading && (
+        <div className="mt-6 text-center">
+          <p className="text-gray-600 font-semibold">
+            Generating your memes... 🚀
+          </p>
+          <div className="loader mt-4 mx-auto"></div> {/* Add a spinner here */}
+        </div>
+      )}
 
       {memeUrls.length > 0 && (
         <div className="mt-6">

@@ -22,9 +22,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       {
         role: "system",
         content: `You are a creative assistant who generates text for memes. Given an input, you create 4 sets of meme text with a "topText" and "bottomText" for the following templates:
-        1. Distracted Boyfriend
+        1. Good Guy Greg
         2. Drakeposting
-        3. Change My Mind
+        3. Conspiracy Keanu
         4. Two Buttons.`,
       },
       {
