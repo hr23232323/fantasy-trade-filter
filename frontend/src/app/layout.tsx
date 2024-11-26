@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { CSPostHogProvider } from "./components/PosthogProvider";
+import Sidebar from "./components/Sidebar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,7 +31,10 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          {children}
+          <div className="flex">
+            <Sidebar /> {/* Add Sidebar here */}
+            <main className="flex-1 ml-60 p-4">{children}</main>
+          </div>
         </body>
       </CSPostHogProvider>
     </html>
