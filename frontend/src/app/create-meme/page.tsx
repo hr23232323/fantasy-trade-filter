@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import MemeCard from "../components/MemeCard";
 import { useMemeGenerator } from "../hooks/useMemeGenerator";
 
-const CreateMeme = () => {
-  const [inputText, setInputText] = useState(""); // Single text input
+const CreateMeme: React.FC = () => {
+  const [inputText, setInputText] = useState<string>(""); // Single text input
   const { memeUrls, generateMemes, loading, error } = useMemeGenerator();
 
   const handleGenerate = () => {
@@ -12,76 +13,59 @@ const CreateMeme = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg m-4 border border-gray-200 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
-        😂 Create Memes
-      </h1>
-      <p className="text-sm text-gray-600 mb-6 text-center">
-        Enter a description or funny text, and we’ll generate memes for you!
-      </p>
+    <div className="container mx-auto md:p-4">
+      <div className="p-6 bg-gray-100 rounded-lg shadow-lg m-4 border border-gray-200 max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          😂 Create Memes
+        </h2>
+        <p className="text-sm text-gray-600 mb-6">
+          Select some players or enter some text to generate memes to kickstart
+          trade talks with.
+        </p>
 
-      <div className="p-4 bg-white shadow-md rounded-md mb-6">
-        <label className="block text-gray-700 font-semibold mb-2">
-          Meme Text
-        </label>
-        <textarea
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          placeholder="Type your text here..."
-          className="w-full p-2 border rounded-lg text-gray-900 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none hover:border-blue-500 transition ease-in-out duration-150"
-          rows={4}
-          disabled={loading} // Disable input while loading
-        />
+        <div className="p-4 bg-white shadow-md rounded-md mb-6">
+          <textarea
+            id="memeText"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder="Talk your shit king..."
+            className="w-full p-2 border rounded-lg text-gray-900 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none hover:border-blue-500 transition ease-in-out duration-150"
+            rows={4}
+            disabled={loading} // Disable input while loading
+          />
+        </div>
+
+        {error && (
+          <p className="mb-4 text-red-500 font-semibold text-center">
+            {error} Please try again.
+          </p>
+        )}
+
+        <button
+          onClick={handleGenerate}
+          className={`w-full p-3 rounded-lg shadow font-bold text-white ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-300"
+          } transition ease-in-out duration-150`}
+          disabled={loading} // Disable button while loading
+        >
+          {loading ? "Generating Memes..." : "Generate Memes"}
+        </button>
       </div>
 
-      {error && (
-        <p className="mb-4 text-red-500 font-semibold text-center">
-          {error} Please try again.
-        </p>
-      )}
-
-      <button
-        onClick={handleGenerate}
-        className={`w-full p-3 rounded-lg shadow font-bold text-white ${
-          loading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-300"
-        } transition ease-in-out duration-150`}
-        disabled={loading} // Disable button while loading
-      >
-        {loading ? "Generating Memes..." : "Generate Memes"}
-      </button>
-
-      {loading && (
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 font-semibold">
-            Generating your memes... 🚀
-          </p>
-          <div className="loader mt-4 mx-auto"></div> {/* Add a spinner here */}
+      <div className="mt-6">
+        <div className={"grid grid-cols-2 sm:grid-cols-3 gap-6"}>
+          {(loading ? [...Array(3)] : memeUrls).map((urlOrEmpty, index) => (
+            <MemeCard
+              key={index}
+              loading={loading}
+              url={!loading ? urlOrEmpty : ""}
+              index={index}
+            />
+          ))}
         </div>
-      )}
-
-      {memeUrls.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">
-            Your Memes
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {memeUrls.map((url, index) => (
-              <div key={index} className="p-4 bg-white shadow-md rounded-md">
-                <img
-                  src={url}
-                  alt={`Meme ${index + 1}`}
-                  className="w-full rounded-md"
-                />
-                <p className="mt-2 text-gray-600 text-center">
-                  Meme {index + 1}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 };

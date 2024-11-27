@@ -13,7 +13,7 @@ const Sidebar = () => {
   return (
     <div
       className={`h-full bg-gray-800 text-white fixed ${
-        isOpen ? "w-75" : "w-20"
+        isOpen ? "w-100" : "w-20"
       } transition-all duration-300`}
     >
       <button

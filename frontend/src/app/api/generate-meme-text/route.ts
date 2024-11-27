@@ -19,33 +19,42 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     // OpenAI API call
-    const messages = [
-      {
-        role: "system",
-        content: `You are a creative assistant who generates text for memes. Given an input, you create 4 sets of meme text with a "topText" and "bottomText" for the following templates:
-        1. Good Guy Greg
-        2. Drakeposting
-        3. Conspiracy Keanu
-        4. Two Buttons.`,
-      },
-      {
-        role: "user",
-        content: `Input Text: "${inputText}"\n\nGenerate meme text in this JSON format:
-        [
-          { "topText": "text for meme 1 top", "bottomText": "text for meme 1 bottom" },
-          { "topText": "text for meme 2 top", "bottomText": "text for meme 2 bottom" },
-          { "topText": "text for meme 3 top", "bottomText": "text for meme 3 bottom" },
-          { "topText": "text for meme 4 top", "bottomText": "text for meme 4 bottom" }
-        ]`,
-      },
-    ];
-
-    const response = await openai.chat.completions.create({
+    const params: OpenAI.Chat.ChatCompletionCreateParams = {
       model: "gpt-4",
-      messages,
-    });
+      messages: [
+        {
+          role: "system",
+          content: `You are a creative assistant who generates text for memes. Given an input, you create 4 sets of meme text with a "topText" and "bottomText" for the following templates:
+          1. Good Guy Greg
+          2. Drakeposting
+          3. Conspiracy Keanu
+          4. Two Buttons.`,
+        },
+        {
+          role: "user",
+          content: `Input Text: "${inputText}"\n\nGenerate meme text in this JSON format:
+          [
+            { "topText": "text for meme 1 top", "bottomText": "text for meme 1 bottom" },
+            { "topText": "text for meme 2 top", "bottomText": "text for meme 2 bottom" },
+            { "topText": "text for meme 3 top", "bottomText": "text for meme 3 bottom" },
+            { "topText": "text for meme 4 top", "bottomText": "text for meme 4 bottom" }
+          ]`,
+        },
+      ],
+    }
 
-    const memeTexts = JSON.parse(response.choices[0].message.content.trim());
+    const response = await openai.chat.completions.create(params);
+
+      // Use optional chaining to safely access properties
+    const content = response?.choices?.[0]?.message?.content?.trim();
+
+    // error handling
+    if (!content) {
+      throw new Error("Content is empty or undefined");
+    }
+
+    // Use nullish coalescing to provide a fallback
+    const memeTexts = content ? JSON.parse(content) : [];
 
     // Respond with generated meme texts
     return NextResponse.json({ memeTexts }, { status: 200 });
