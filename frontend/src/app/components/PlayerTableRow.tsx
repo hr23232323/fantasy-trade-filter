@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, useEffect } from "react";
 import { Player } from "../types/Player";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { InjuryIndicator } from "./InjuryIndicator";
@@ -10,6 +10,8 @@ interface PlayerTableRowProps {
   isExpanded: boolean;
   toggleExpandRow: (slug: string) => void;
   isOneQBMode: boolean;
+  checked: boolean;
+  togglePlayerSelection: (name: string) => void;
 }
 
 const getPositionRowColor = (position: string) => {
@@ -74,6 +76,8 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
   isExpanded,
   toggleExpandRow,
   isOneQBMode,
+  checked,
+  togglePlayerSelection,
 }) => {
   return (
     <Fragment>
@@ -81,8 +85,29 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
         className={`border-t cursor-pointer ${getPositionRowColor(
           player.position
         )}`}
-        onClick={() => toggleExpandRow(player.slug)}
+        onClick={(e) => {
+          // Prevent expanding if the click is on the checkbox column
+          const target = e.target as HTMLElement;
+          if (target.tagName !== "INPUT") {
+            toggleExpandRow(player.slug);
+          }
+        }}
       >
+        {/* Checkbox Column */}
+        <td
+          className="p-3 text-center"
+          onClick={(e) => {
+            e.stopPropagation();
+            togglePlayerSelection(player.playerName);
+          }}
+        >
+          <input
+            className="cursor-pointer"
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => togglePlayerSelection(player.playerName)}
+          />
+        </td>
         <td className="p-3 flex items-center">
           {positionIcons[player.position] || player.position}
           <span className="ml-2">{player.playerName}</span>

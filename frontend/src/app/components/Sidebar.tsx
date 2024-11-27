@@ -41,7 +41,7 @@ const Sidebar = () => {
                 isActive("/create-meme") ? "bg-gray-700" : ""
               }`}
             >
-              😂 Create Meme
+              😂 Create Memes
             </Link>
           </li>
         </ul>

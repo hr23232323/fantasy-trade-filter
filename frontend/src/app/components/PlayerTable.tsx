@@ -1,6 +1,7 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Player } from "../types/Player";
 import { PlayerTableRow } from "./PlayerTableRow";
+import { useAppContext } from "../context/AppContext";
 
 interface PlayerTableProps {
   players: Player[];
@@ -17,6 +18,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
   searchValue,
   handleSearch,
 }) => {
+  const { selectedPlayers, addPlayer, removePlayer } = useAppContext();
   const [expandedRow, setExpandedRow] = useState<string | null>(null); // Track expanded rows for details
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 25;
@@ -39,6 +41,14 @@ const PlayerTable: FC<PlayerTableProps> = ({
     currentPage * rowsPerPage
   );
 
+  const togglePlayerSelection = (playerName: string) => {
+    if (selectedPlayers.includes(playerName)) {
+      removePlayer(playerName);
+    } else {
+      addPlayer(playerName);
+    }
+  };
+
   return (
     <div className="overflow-x-auto mt-4 bg-gray-100 p-2 md:p-4 md:rounded-lg shadow-md">
       <h2 className="text-xl font-bold text-gray-800 mt-2">📋 Player List</h2>
@@ -60,6 +70,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
       <table className="text-sm min-w-full bg-white shadow-md rounded-lg">
         <thead className="bg-gray-800 text-white sticky top-0">
           <tr>
+            <th className="p-3 text-left"></th>
             <th className="p-3 text-left">Player</th>
             <th className="p-3 text-left md:table-cell hidden">
               Position Rank
@@ -80,6 +91,10 @@ const PlayerTable: FC<PlayerTableProps> = ({
                 toggleExpandRow={toggleExpandRow}
                 isExpanded={expandedRow === player.slug}
                 isOneQBMode={isOneQBMode}
+                checked={selectedPlayers.includes(player.playerName)}
+                togglePlayerSelection={() =>
+                  togglePlayerSelection(player.playerName)
+                }
               />
             );
           })}
