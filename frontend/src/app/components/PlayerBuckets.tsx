@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -82,7 +82,11 @@ const PlayerBuckets: React.FC<PlayerBucketsProps> = ({
 }) => {
   const { selectedPlayers } = useAppContext();
 
-  const initialPlayers = selectedPlayers.map((player) => player);
+  // Memoize the initial players to prevent re-calculation on every render
+  const initialPlayers = useMemo(
+    () => selectedPlayers.map((player) => player),
+    [selectedPlayers]
+  );
   const [buckets, setBuckets] = useState<Buckets>({
     tradingAway: initialPlayers,
     tryingToGet: [] as Player[],
