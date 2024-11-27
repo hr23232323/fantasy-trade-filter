@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Securely store API key
+  apiKey: process.env.OPENAI_API_KEY || 'NOT SET',
 });
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
