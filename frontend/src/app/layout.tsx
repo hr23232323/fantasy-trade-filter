@@ -36,7 +36,7 @@ export default function RootLayout({
           >
             <div className="flex flex-col md:flex-row">
               <Sidebar />
-              <main className="flex-1 md:ml-60 p-4">{children}</main>
+              <main className="flex-1 p-4 ml-0">{children}</main>
             </div>
           </body>
           <FloatingButton />

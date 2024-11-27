@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FaTimes, FaBars } from "react-icons/fa"; // Import icons
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -10,22 +11,26 @@ const Sidebar = () => {
 
   const isActive = (path: string) => pathname === path;
 
+  useEffect(() => {
+    console.log(isOpen);
+  }, [isOpen]);
+
   return (
     <>
       {/* Overlay for mobile when sidebar is open */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={() => setIsOpen(false)}
         ></div>
       )}
-
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-gray-800 text-white z-50 transform ${
+        className={`fixed top-0 left-0 h-full bg-gray-800 text-white z-40 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 md:w-60 w-64`}
+        } transition-transform duration-300 w-64`}
       >
-        <nav className="mt-16 md:mt-4 space-y-2">
+        <nav className="mt-24 space-y-2">
           <ul>
             <li>
               <Link
@@ -51,12 +56,12 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* Toggle button for mobile */}
+      {/* Top-Left Toggle Button */}
       <button
-        className="fixed bottom-4 right-4 p-4 bg-gray-800 text-white rounded-full shadow-md z-50"
+        className="fixed top-4 left-4 p-4 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-md z-50 hover:shadow-md"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        ☰
+        {isOpen ? <FaTimes size={16} /> : <FaBars size={16} />}
       </button>
     </>
   );
