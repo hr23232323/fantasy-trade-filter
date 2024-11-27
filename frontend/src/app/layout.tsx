@@ -34,9 +34,9 @@ export default function RootLayout({
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
-            <div className="flex">
-              <Sidebar /> {/* Add Sidebar here */}
-              <main className="flex-1 ml-60 p-4">{children}</main>
+            <div className="flex flex-col md:flex-row">
+              <Sidebar />
+              <main className="flex-1 md:ml-60 p-4">{children}</main>
             </div>
           </body>
           <FloatingButton />
