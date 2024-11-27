@@ -41,11 +41,11 @@ const PlayerTable: FC<PlayerTableProps> = ({
     currentPage * rowsPerPage
   );
 
-  const togglePlayerSelection = (playerName: string) => {
-    if (selectedPlayers.includes(playerName)) {
-      removePlayer(playerName);
+  const togglePlayerSelection = (player: Player) => {
+    if (selectedPlayers.includes(player)) {
+      removePlayer(player);
     } else {
-      addPlayer(playerName);
+      addPlayer(player);
     }
   };
 
@@ -91,10 +91,8 @@ const PlayerTable: FC<PlayerTableProps> = ({
                 toggleExpandRow={toggleExpandRow}
                 isExpanded={expandedRow === player.slug}
                 isOneQBMode={isOneQBMode}
-                checked={selectedPlayers.includes(player.playerName)}
-                togglePlayerSelection={() =>
-                  togglePlayerSelection(player.playerName)
-                }
+                checked={selectedPlayers.includes(player)}
+                togglePlayerSelection={() => togglePlayerSelection(player)}
               />
             );
           })}

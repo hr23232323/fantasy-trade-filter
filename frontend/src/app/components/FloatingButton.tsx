@@ -33,9 +33,6 @@ const FloatingButton: React.FC = () => {
         {/* Main Button Text */}
         <span className="flex flex-col items-center">
           <span className="text-lg">😂 Create Memes</span>
-          {/* <span className="text-sm font-normal">
-            {selectedPlayers.length} Players Selected
-          </span> */}
         </span>
         {/* Fun Badge */}
         <div className="absolute -top-3 -right-3 bg-red-500 text-white text-[8px] leading-[10px] font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-md">

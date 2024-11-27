@@ -1,12 +1,13 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
+import { Player } from "../types/Player";
 
 // Define the shape of the context state
 interface AppContextType {
-  selectedPlayers: string[]; // List of player names
-  addPlayer: (player: string) => void; // Add a player
-  removePlayer: (player: string) => void; // Remove a player
+  selectedPlayers: Player[]; // List of player names
+  addPlayer: (player: Player) => void; // Add a player
+  removePlayer: (player: Player) => void; // Remove a player
   clearPlayers: () => void; // Clear all players
 }
 
@@ -17,15 +18,15 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [selectedPlayers, setSelectedPlayers] = useState<string[]>([]);
+  const [selectedPlayers, setSelectedPlayers] = useState<Player[]>([]);
 
   // Add a player
-  const addPlayer = (player: string) => {
+  const addPlayer = (player: Player) => {
     setSelectedPlayers((prev) => [...prev, player]);
   };
 
   // Remove a player
-  const removePlayer = (player: string) => {
+  const removePlayer = (player: Player) => {
     setSelectedPlayers((prev) => prev.filter((p) => p !== player));
   };
 
