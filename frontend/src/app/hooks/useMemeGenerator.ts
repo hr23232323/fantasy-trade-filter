@@ -5,13 +5,6 @@ export const useMemeGenerator = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const templates = [
-    "ggg",
-    "drake",
-    "keanu",
-    "ds",
-  ];
-
   const generateMemes = async (inputText: string) => {
     if (!inputText.trim()) {
       setError("Please enter some text!");
@@ -37,13 +30,12 @@ export const useMemeGenerator = () => {
 
       const { memeTexts } = await response.json();
 
-      console.log(memeTexts)
-
-      // Generate URLs for the memes using the generated text
-      const generatedUrls = memeTexts.map((meme: any, index: number) => {
-        const topText = encodeURIComponent(meme.topText);
-        const bottomText = encodeURIComponent(meme.bottomText);
-        return `https://api.memegen.link/images/${templates[index]}/${topText}/${bottomText}.png`;
+      // Generate URLs for the memes using the returned data
+      const generatedUrls = memeTexts.map((meme: any) => {
+        const { id, texts } = meme;
+        const topText = encodeURIComponent(texts[0]?.topText || "");
+        const bottomText = encodeURIComponent(texts[0]?.bottomText || "");
+        return `https://api.memegen.link/images/${id}/${topText}/${bottomText}.png`;
       });
 
       setMemeUrls(generatedUrls);

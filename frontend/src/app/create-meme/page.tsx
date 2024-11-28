@@ -75,7 +75,7 @@ const CreateMeme: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {(loading ? [...Array(3)] : memeUrls).map((urlOrEmpty, index) => (
           <MemeCard
             key={index}
