@@ -5,6 +5,7 @@ import { Player } from "../types/Player";
 
 // Define the shape of the context state
 interface AppContextType {
+  // TODO - Map if needed to be much faster?
   selectedPlayers: Player[]; // List of player names
   addPlayer: (player: Player) => void; // Add a player
   removePlayer: (player: Player) => void; // Remove a player

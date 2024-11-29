@@ -42,7 +42,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
   );
 
   const togglePlayerSelection = (player: Player) => {
-    if (selectedPlayers.includes(player)) {
+    if (selectedPlayers.some((p) => p.slug === player.slug)) {
       removePlayer(player);
     } else {
       addPlayer(player);
@@ -91,7 +91,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
                 toggleExpandRow={toggleExpandRow}
                 isExpanded={expandedRow === player.slug}
                 isOneQBMode={isOneQBMode}
-                checked={selectedPlayers.includes(player)}
+                checked={selectedPlayers.some((p) => p.slug === player.slug)}
                 togglePlayerSelection={() => togglePlayerSelection(player)}
               />
             );
