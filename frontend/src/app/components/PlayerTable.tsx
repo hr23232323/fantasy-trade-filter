@@ -102,6 +102,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
       {/* Pagination */}
       <div className="flex justify-between items-center mt-4">
         <button
+          aria-label="Previous Page"
           onClick={() => handlePageChange("prev")}
           disabled={currentPage === 1}
           className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300"
@@ -112,6 +113,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
           Page {currentPage} of {Math.ceil(players.length / rowsPerPage)}
         </span>
         <button
+          aria-label="Next Page"
           onClick={() => handlePageChange("next")}
           disabled={currentPage * rowsPerPage >= players.length}
           className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300"

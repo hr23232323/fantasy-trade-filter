@@ -39,6 +39,7 @@ const CreateMeme: React.FC = () => {
           <div className="w-full flex flex-col justify-center items-center space-y-2">
             {/* Button */}
             <button
+              aria-label="Generate Meme"
               onClick={handleGenerate}
               className={`w-1/2 p-3 rounded-lg shadow font-bold text-white text-center ${
                 loading || !inputText

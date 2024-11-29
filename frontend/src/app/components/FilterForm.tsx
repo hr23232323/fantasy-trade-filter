@@ -69,6 +69,7 @@ const FilterForm: FC<FilterFormProps> = ({
                 className="flex items-center cursor-pointer group"
               >
                 <input
+                  aria-label={`Select position: ${value}`}
                   type="checkbox"
                   value={value}
                   checked={position.includes(value)}
@@ -86,6 +87,7 @@ const FilterForm: FC<FilterFormProps> = ({
               </label>
             ))}
             <button
+              aria-label="Select All"
               onClick={handleSelectAll}
               className="text-blue-500 text-sm hover:underline focus:outline-none"
             >

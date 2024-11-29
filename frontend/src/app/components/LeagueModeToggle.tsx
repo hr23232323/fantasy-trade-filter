@@ -22,6 +22,7 @@ const LeagueModeToggle: FC<LeagueModeToggleProps> = ({
         <div className="flex items-center space-x-4">
           {/* 1QB Button */}
           <button
+            aria-label="1QB League"
             onClick={() => toggleQBMode()}
             className={`flex items-center space-x-2 px-3 py-2 rounded-lg focus:outline-none transition-colors ${
               isOneQBMode
@@ -35,6 +36,7 @@ const LeagueModeToggle: FC<LeagueModeToggleProps> = ({
 
           {/* 2QB Button */}
           <button
+            aria-label="2QB League"
             onClick={() => toggleQBMode()}
             className={`flex items-center space-x-2 px-3 py-2 rounded-lg focus:outline-none transition-colors ${
               !isOneQBMode

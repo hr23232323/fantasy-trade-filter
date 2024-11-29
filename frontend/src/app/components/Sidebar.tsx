@@ -64,6 +64,7 @@ const Sidebar = () => {
 
       {/* Top-Left Toggle Button */}
       <button
+        aria-label="Open/Close Sidebar"
         className="fixed top-4 left-4 p-4 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-md z-50 hover:shadow-md"
         onClick={() => setIsOpen((prev) => !prev)}
       >

@@ -64,6 +64,7 @@ const MemeCard: React.FC<MemeCardProps> = ({ url, index, loading = false }) => {
       {/* Buttons */}
       <div className="flex gap-4 mt-4">
         <button
+          aria-label="Download"
           onClick={() => handleDownload(url, index)}
           className="px-4 py-2 bg-blue-500 text-white rounded-md font-semibold flex items-center gap-2 hover:bg-blue-600 transition duration-200"
         >
@@ -71,6 +72,7 @@ const MemeCard: React.FC<MemeCardProps> = ({ url, index, loading = false }) => {
         </button>
 
         <button
+          aria-label="Share"
           onClick={() => handleShare(url)}
           className="px-4 py-2 bg-green-500 text-white rounded-md font-semibold flex items-center gap-2 hover:bg-green-600 transition duration-200"
         >

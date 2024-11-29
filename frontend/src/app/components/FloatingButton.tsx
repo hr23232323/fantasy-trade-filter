@@ -27,6 +27,7 @@ const FloatingButton: React.FC = () => {
       }`}
     >
       <button
+        aria-label="Create Meme"
         onClick={() => router.push("/create-meme")}
         className="relative bg-gradient-to-r from-blue-500 to-blue-600 text-white text-base font-semibold flex items-center justify-center px-6 py-4 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
       >
