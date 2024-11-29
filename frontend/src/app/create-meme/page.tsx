@@ -17,10 +17,6 @@ const CreateMeme: React.FC = () => {
     setInputText(val);
   };
 
-  useEffect(() => {
-    console.log(`Input text: ${inputText}`);
-  }, [inputText]);
-
   return (
     <div className="container mx-auto md:p-4 mt-10">
       <div className="px-8">
@@ -37,18 +33,26 @@ const CreateMeme: React.FC = () => {
               {error} Please try again.
             </p>
           )}
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full flex flex-col justify-center items-center space-y-2">
+            {/* Button */}
             <button
               onClick={handleGenerate}
               className={`w-1/2 p-3 rounded-lg shadow font-bold text-white text-center ${
-                loading
+                loading || !inputText
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-300"
               } transition ease-in-out duration-150`}
-              disabled={loading} // Disable button while loading
+              disabled={loading || !inputText} // Disable button when loading or inputText is empty
             >
               {loading ? "Generating Memes..." : "Generate Memes"}
             </button>
+
+            {/* Tooltip / Helper Text */}
+            {!inputText && (
+              <p className="text-sm text-red-500">
+                Select some trade players to generate memes.
+              </p>
+            )}
           </div>
         </div>
       </div>

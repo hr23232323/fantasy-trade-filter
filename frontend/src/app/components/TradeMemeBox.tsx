@@ -19,9 +19,15 @@ export const TradeMemeBox: React.FC<TradeMemeBoxProps> = ({
       .map((player) => player.playerName)
       .join(", ");
 
-    updateInputText(
-      `Make a meme about trying to sell ${playersTradingAway} for ${playersTryingToGet}`
-    );
+    // Only make input text if we have players in both buckets
+    if (playersTradingAway.length > 0 && playersTryingToGet.length > 0) {
+      updateInputText(
+        `Make some memes about trying to trade away ${playersTradingAway} and get ${playersTryingToGet} in return.`
+      );
+    } else {
+      // Reset
+      updateInputText("");
+    }
   };
   return (
     <div className="p-4 bg-gray-100 rounded-lg shadow-lg border border-gray-200 w-full">

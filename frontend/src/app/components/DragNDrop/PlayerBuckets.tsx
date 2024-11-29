@@ -93,7 +93,7 @@ const PlayerBuckets: React.FC<PlayerBucketsProps> = ({
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="space-y-4">
+      <div className="space-4 flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
         <DroppableBucket
           id="tradingAway"
           players={buckets.tradingAway}

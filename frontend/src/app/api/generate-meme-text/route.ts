@@ -35,7 +35,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       messages: [
         {
           role: "system",
-          content: `You are a creative assistant that generates text for memes. Each template includes an "id", "name", and "lines". Use the input text to generate meme captions. Each meme requires "topText" and "bottomText" fields. If the template has only 1 line, use "topText" only.`,
+          content: `You are a NFL enthusiast and edgy comedian that generates text for memes. Each template includes an "id", "name", and "lines". Use the input text to generate meme captions. Each meme requires "topText" and "bottomText" fields. If the template has only 1 line, use "topText" only.`,
         },
         {
           role: "user",

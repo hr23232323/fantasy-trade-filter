@@ -15,7 +15,7 @@ const DroppableBucket: React.FC<{
   return (
     <div
       ref={setNodeRef}
-      className={`p-4 border rounded-xl shadow-md bg-gray-50 transition ${
+      className={`p-4 border rounded-xl shadow-md bg-gray-50 transition md:w-1/2 ${
         isDraggingOver ? "bg-blue-50 border-blue-500" : ""
       }`}
     >
@@ -23,11 +23,7 @@ const DroppableBucket: React.FC<{
       {subtitle && <p className="text-xs text-gray-600 mb-4">{subtitle}</p>}
       <div className="space-y-2">
         {players.map((player) => (
-          <DraggableItem
-            key={player.slug}
-            slug={player.slug}
-            name={player.playerName}
-          />
+          <DraggableItem player={player} />
         ))}
       </div>
     </div>
