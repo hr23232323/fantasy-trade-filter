@@ -32,7 +32,6 @@ const Home = () => {
     const fetchPlayers = async () => {
       setLoading(true); // Start loading
       try {
-        console.log("Fetching all players...");
         const response = await axios.get<Player[]>("/api/all-players");
         setAllPlayers(response.data);
         setPlayers(response.data);

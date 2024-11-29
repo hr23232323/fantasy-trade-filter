@@ -42,7 +42,6 @@ export const PlayerTableRow: FC<PlayerTableRowProps> = ({
           }
         }}
       >
-        {/* Checkbox Column */}
         <td
           className="p-3 text-center"
           onClick={(e) => {

@@ -102,9 +102,8 @@ export default function RootLayout({
               <main className="flex-1 p-4 ml-0">{children}</main>
             </div>
             <Footer />
+            <FloatingButton />
           </body>
-          {/* Floating button */}
-          <FloatingButton />
         </AppProvider>
       </CSPostHogProvider>
     </html>

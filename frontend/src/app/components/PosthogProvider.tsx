@@ -15,7 +15,6 @@ export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
   useEffect(() => {
     const initializePostHog = async () => {
       try {
-        console.log("Fetching PostHog configuration...");
         const response = await axios.get("/api/posthog-config");
 
         const config = response.data;

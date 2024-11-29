@@ -23,7 +23,7 @@ const DroppableBucket: React.FC<{
       {subtitle && <p className="text-xs text-gray-600 mb-4">{subtitle}</p>}
       <div className="space-y-2">
         {players.map((player) => (
-          <DraggableItem player={player} />
+          <DraggableItem key={player.slug} player={player} />
         ))}
       </div>
     </div>

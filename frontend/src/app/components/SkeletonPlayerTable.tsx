@@ -1,4 +1,5 @@
 import React from "react";
+import { FaChevronDown } from "react-icons/fa";
 
 const SkeletonPlayerTable = () => {
   const rowsPerPage = 25; // Match your pagination
@@ -17,7 +18,7 @@ const SkeletonPlayerTable = () => {
             <th className="p-3 text-left">Position Rank</th>
             <th className="p-3 text-left">Age</th>
             <th className="p-3 text-left">Value</th>
-            <th className="p-3 text-left"></th> {/* Expand icon */}
+            <th className="p-3 text-left">&nbsp;</th>
           </tr>
         </thead>
         <tbody className="text-gray-800">

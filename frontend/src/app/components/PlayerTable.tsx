@@ -70,7 +70,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
       <table className="text-sm min-w-full bg-white shadow-md rounded-lg">
         <thead className="bg-gray-800 text-white sticky top-0">
           <tr>
-            <th className="p-3 text-left"></th>
+            <th className="p-3 text-left">&nbsp;</th>
             <th className="p-3 text-left">Player</th>
             <th className="p-3 text-left md:table-cell hidden">
               Position Rank
@@ -79,7 +79,7 @@ const PlayerTable: FC<PlayerTableProps> = ({
             <th className="p-3 text-left">
               {isOneQBMode ? "Value (1QB)" : "Value (2QB)"}
             </th>
-            <th className="p-3 text-left"></th> {/* Expand icon */}
+            <th className="p-3 text-left">&nbsp;</th>
           </tr>
         </thead>
         <tbody className="text-gray-800">
