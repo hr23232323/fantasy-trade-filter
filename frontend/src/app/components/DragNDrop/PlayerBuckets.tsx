@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DndContext, closestCenter, DragOverlay } from "@dnd-kit/core";
 import { useAppContext } from "../../context/AppContext";
 import { Player } from "../../types/Player";
@@ -90,18 +90,6 @@ const PlayerBuckets: React.FC<PlayerBucketsProps> = ({
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      {selectedPlayers &&
-        selectedPlayers.map((player) => {
-          return (
-            <div className="text-gray-800">Selected: {player.playerName}</div>
-          );
-        })}
-      {initialPlayers &&
-        initialPlayers.map((player) => {
-          return (
-            <div className="text-gray-800">Initial: {player.playerName}</div>
-          );
-        })}
       <div className="space-4 flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
         <DroppableBucket
           id="tradingAway"
