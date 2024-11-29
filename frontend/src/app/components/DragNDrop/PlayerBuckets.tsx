@@ -16,11 +16,8 @@ const PlayerBuckets: React.FC<PlayerBucketsProps> = ({
 }) => {
   const { selectedPlayers } = useAppContext();
 
-  // Memoize the initial players to prevent re-calculation on every render
-  const initialPlayers = useMemo(
-    () => selectedPlayers.map((player) => player),
-    [selectedPlayers]
-  );
+  const initialPlayers = [...selectedPlayers];
+
   const [buckets, setBuckets] = useState<Buckets>({
     tradingAway: initialPlayers,
     tryingToGet: [] as Player[],
