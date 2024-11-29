@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMemeGenerator } from "../hooks/useMemeGenerator";
 import TradeMemeBox from "../components/TradeMemeBox";
 import MemeGrid from "../components/MemeGrid/MemeGrid";

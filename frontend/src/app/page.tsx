@@ -168,10 +168,6 @@ const Home = () => {
           handleSearch={handleSearch}
         />
       )}
-      <footer className="text-center text-gray-500 md:mt-8 my-4 py-2 px-6">
-        Built with ❤️ for Fantasy Football players. 🚀 Good luck on your next
-        trade!
-      </footer>
     </div>
   );
 };

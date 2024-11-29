@@ -6,6 +6,7 @@ import Sidebar from "./components/Sidebar";
 import { AppProvider } from "./context/AppContext";
 import FloatingButton from "./components/FloatingButton";
 import Head from "next/head";
+import Footer from "./components/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -93,13 +94,14 @@ export default function RootLayout({
       <CSPostHogProvider>
         <AppProvider>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
           >
-            <div className="flex flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row flex-1">
               {/* Sidebar as a semantic navigation element */}
               <Sidebar />
               <main className="flex-1 p-4 ml-0">{children}</main>
             </div>
+            <Footer />
           </body>
           {/* Floating button */}
           <FloatingButton />

@@ -11,10 +11,6 @@ const Sidebar = () => {
 
   const isActive = (path: string) => pathname === path;
 
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
-
   return (
     <>
       {/* Overlay for mobile when sidebar is open */}
@@ -50,6 +46,16 @@ const Sidebar = () => {
                 }`}
               >
                 😂 Create Memes
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/faq"
+                className={`block p-4 hover:bg-gray-500 ${
+                  isActive("/faq") ? "bg-gray-700" : ""
+                }`}
+              >
+                🤔 FAQ
               </Link>
             </li>
           </ul>
