@@ -54,7 +54,7 @@ const CreateMeme: React.FC = () => {
           <TradeMemeBox updateBackupInputText={updateBackupInputText} />
         </div>
 
-        <div className="flex flex-col mt-4">
+        <div className="flex flex-col my-4">
           {error && (
             <p className="mb-4 text-red-500 font-semibold text-center">
               {error} Please try again.
