@@ -1,77 +1,11 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  DndContext,
-  closestCenter,
-  useDraggable,
-  useDroppable,
-  DragOverlay,
-} from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
-import { useAppContext } from "../context/AppContext";
-import { Player } from "../types/Player";
-
-export type Buckets = {
-  tradingAway: Player[];
-  tryingToGet: Player[];
-};
-
-// Draggable Item Component
-const DraggableItem: React.FC<{ slug: string; name: string }> = ({
-  slug,
-  name,
-}) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: slug,
-  });
-
-  const style = {
-    transform: CSS.Translate.toString(transform),
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-      className="p-3 bg-white rounded-lg shadow-md mb-2  text-sm  cursor-pointer text-gray-600"
-    >
-      {name}
-    </div>
-  );
-};
-
-// Droppable Bucket Component
-const DroppableBucket: React.FC<{
-  id: string;
-  players: Player[];
-  title: string;
-  isDraggingOver: boolean;
-}> = ({ id, players, title, isDraggingOver }) => {
-  const { setNodeRef } = useDroppable({ id });
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={`p-4 border rounded-xl shadow-md bg-gray-50 transition ${
-        isDraggingOver ? "bg-blue-50 border-blue-500" : ""
-      }`}
-    >
-      <h3 className="text-lg font-semibold mb-4 text-gray-700">{title}</h3>
-      <div className="space-y-2">
-        {players.map((player) => (
-          <DraggableItem
-            key={player.slug}
-            slug={player.slug}
-            name={player.playerName}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
+import { DndContext, closestCenter, DragOverlay } from "@dnd-kit/core";
+import { useAppContext } from "../../context/AppContext";
+import { Player } from "../../types/Player";
+import { Buckets } from "../../types/Bucket";
+import DroppableBucket from "./DroppableBucket";
 
 // Main Component
 interface PlayerBucketsProps {
@@ -164,12 +98,14 @@ const PlayerBuckets: React.FC<PlayerBucketsProps> = ({
           id="tradingAway"
           players={buckets.tradingAway}
           title="Trading Away"
+          subtitle="Players you're trying to get rid of."
           isDraggingOver={activeBucket === "tradingAway"} // Ensure boolean
         />
         <DroppableBucket
           id="tryingToGet"
           players={buckets.tryingToGet}
           title="Trying to Get"
+          subtitle="Players you're trying to get."
           isDraggingOver={activeBucket === "tryingToGet"} // Ensure boolean
         />
       </div>
