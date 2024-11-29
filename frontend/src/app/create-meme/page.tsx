@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MemeCard from "../components/MemeCard";
 import { useMemeGenerator } from "../hooks/useMemeGenerator";
 import TextMemeBox from "../components/TextMemeBox";
 import TradeMemeBox from "../components/TradeMemeBox";
+import MemeGrid from "../components/MemeGrid/MemeGrid";
 
 const CreateMeme: React.FC = () => {
   const [inputText, setInputText] = useState<string>(""); // Single text input
@@ -75,16 +75,7 @@ const CreateMeme: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(loading ? [...Array(3)] : memeUrls).map((urlOrEmpty, index) => (
-          <MemeCard
-            key={index}
-            loading={loading}
-            url={!loading ? urlOrEmpty : ""}
-            index={index}
-          />
-        ))}
-      </div>
+      <MemeGrid loading={loading} memeUrls={memeUrls} />
     </div>
   );
 };

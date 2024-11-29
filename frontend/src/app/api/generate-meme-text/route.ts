@@ -26,8 +26,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const templatesData = await fs.readFile(templatesPath, "utf-8");
     const templates = JSON.parse(templatesData);
 
-    // Randomly select 10 meme templates
-    const randomTemplates = templates.sort(() => 0.5 - Math.random()).slice(0, 10);
+    // Randomly select 12 meme templates
+    const randomTemplates = templates.sort(() => 0.5 - Math.random()).slice(0, 12);
 
     // OpenAI API call
     const params: OpenAI.Chat.ChatCompletionCreateParams = {
