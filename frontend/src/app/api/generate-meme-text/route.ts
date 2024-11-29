@@ -31,7 +31,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     // OpenAI API call
     const params: OpenAI.Chat.ChatCompletionCreateParams = {
-      model: "gpt-4",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const response = await openai.chat.completions.create(params);
 
-      // Use optional chaining to safely access properties
-    const content = response?.choices?.[0]?.message?.content?.trim();
+      // Use optional chaining to safely access properties (and trim + drop backticks)
+    const content = response?.choices?.[0]?.message?.content?.trim().replace(/`/g, "");;
 
     // error handling
     if (!content) {

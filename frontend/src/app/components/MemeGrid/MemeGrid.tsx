@@ -20,7 +20,7 @@ const MemeGrid: React.FC<MemeGridProps> = ({ memeUrls, loading }) => {
       className={styles["masonry-grid"]}
       columnClassName={styles["masonry-grid-column"]}
     >
-      {(loading ? [...Array(3)] : memeUrls).map((urlOrEmpty, index) => (
+      {(loading ? [...Array(6)] : memeUrls).map((urlOrEmpty, index) => (
         <MemeCard
           key={index}
           loading={loading}
