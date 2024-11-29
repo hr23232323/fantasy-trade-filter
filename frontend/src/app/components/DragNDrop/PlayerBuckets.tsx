@@ -90,6 +90,18 @@ const PlayerBuckets: React.FC<PlayerBucketsProps> = ({
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
+      {selectedPlayers &&
+        selectedPlayers.map((player) => {
+          return (
+            <div className="text-gray-800">Selected: {player.playerName}</div>
+          );
+        })}
+      {initialPlayers &&
+        initialPlayers.map((player) => {
+          return (
+            <div className="text-gray-800">Initial: {player.playerName}</div>
+          );
+        })}
       <div className="space-4 flex flex-col md:flex-row space-y-4 md:space-x-4 md:space-y-0">
         <DroppableBucket
           id="tradingAway"
