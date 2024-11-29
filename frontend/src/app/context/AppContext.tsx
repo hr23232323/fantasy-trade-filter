@@ -23,12 +23,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Add a player
   const addPlayer = (player: Player) => {
-    setSelectedPlayers((prev) => [...prev, player]);
+    setSelectedPlayers((prev) => {
+      if (prev.some((p) => p.slug === player.slug)) return prev; // Avoid duplication
+      return [...prev, player];
+    });
   };
 
   // Remove a player
   const removePlayer = (player: Player) => {
-    setSelectedPlayers((prev) => prev.filter((p) => p !== player));
+    setSelectedPlayers((prev) => prev.filter((p) => p.slug !== player.slug));
   };
 
   // Clear all players
