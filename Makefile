@@ -65,14 +65,13 @@ deploy:
 	wait
 
 deploy-gha:
-	@echo "Deploying Frontend..."
-	$(MAKE) -C frontend deploy || { echo "Frontend deploy failed"; cat frontend.log; exit 1; }
-
 	@echo "Deploying Backend..."
 	$(MAKE) -C backend deploy || { echo "Backend deploy failed"; cat backend.log; exit 1; }
+
+	@echo "Deploying Frontend..."
+	$(MAKE) -C frontend deploy || { echo "Frontend deploy failed"; cat frontend.log; exit 1; }
 	
 	@echo "Both deployments finished successfully."
-
 
 # Help menu
 help:

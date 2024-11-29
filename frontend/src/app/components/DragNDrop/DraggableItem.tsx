@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Player } from "@/app/types/Player";
@@ -12,14 +12,16 @@ import RookieBadge from "../RookieBadge";
 interface DraggableItemProps {
   player: Player;
 }
+
 // Draggable Item Component
-const DraggableItem: React.FC<DraggableItemProps> = ({ player }) => {
+const DraggableItem: React.FC<DraggableItemProps> = memo(({ player }) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: player.slug,
   });
 
   const style = {
-    transform: CSS.Translate.toString(transform),
+    transform: transform ? CSS.Translate.toString(transform) : undefined,
+    touchAction: "none", // Prevents scrolling conflicts during drag on mobile
   };
 
   return (
@@ -38,6 +40,6 @@ const DraggableItem: React.FC<DraggableItemProps> = ({ player }) => {
       <RookieBadge player={player} />
     </div>
   );
-};
+});
 
 export default DraggableItem;

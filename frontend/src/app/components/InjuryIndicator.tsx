@@ -25,7 +25,7 @@ export const InjuryIndicator: React.FC<InjuryIndicatorProps> = ({ player }) => {
   const injuryDetails = getInjuryStatus(player.injury.injuryCode);
 
   return player.injury.injuryCode > 1 ? (
-    <div className="ml-2 relative group">
+    <div className="ml-2 relative group inline-flex">
       <FaExclamationCircle
         className={`w-4 h-4 ${injuryDetails.color}`}
         aria-label={`Injury: ${injuryDetails.label}`}
