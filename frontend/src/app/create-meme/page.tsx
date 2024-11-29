@@ -20,9 +20,12 @@ const CreateMeme: React.FC = () => {
   return (
     <div className="container mx-auto md:p-4 mt-10">
       <div className="px-8">
-        <h1 className="text-3xl font-bold text-center mb-4">
-          🤣 Trade Meme Maker
-        </h1>
+        <h1 className="text-3xl font-bold text-center mb-4">🤣 Trade Memes</h1>
+        <p className="text-center text-gray-400 mb-10">
+          Trades are hard to make, but some humor goes a long way in starting
+          those trade talks. Generate funny memes about the players in the trade
+          and hopefully get that 🐐 you need.
+        </p>
       </div>
       <div className="flex flex-col mt-10 mx-4">
         <TradeMemeBox inputText={inputText} updateInputText={updateInputText} />
