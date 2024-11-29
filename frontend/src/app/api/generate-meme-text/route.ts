@@ -21,8 +21,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       );
     }
 
-    // Load the minimized meme templates JSON
-    const templatesPath = path.join(process.cwd(), "src/app/api/generate-meme-text/memeTemplates.json");
+    // Reference the file path in the `public` directory
+    const templatesPath = path.join(process.cwd(), "public", "memeTemplates.json");
     const templatesData = await fs.readFile(templatesPath, "utf-8");
     const templates = JSON.parse(templatesData);
 

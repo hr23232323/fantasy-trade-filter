@@ -23,6 +23,7 @@ COPY --from=build /app/package.json ./
 COPY --from=build /app/yarn.lock ./
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/public ./public
 
 # Install production dependencies and clean cache
 RUN yarn install --frozen-lockfile --production && yarn cache clean
